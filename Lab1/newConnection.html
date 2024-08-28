@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create a New Connection</title>
-    <!-- Reference to CSS style sheet -->
+    <title>Create a Gaming Meetup</title>
     <link href="Styles/style.css" rel="stylesheet">
-    <!-- Add icon to website -->
     <link rel="icon" type="image/x-icon" href ="Images/website-icon-1.gif">
     <meta charset="UTF-8">
-    <meta name="author" content="Jacob Miller">
+    <meta name="author" content="Jacob Miller and Stephanie Karp">
   </head>
 
   <body>
-    <div class='navigation'>
-      <ul>
-        <li><a class='home bold' href="./index.html">Home</a> </li>
-        <li><a class='connections bold' href="./newConnection.html">Connections</a> </li>
-      </ul>
-    </div>
+    <header>
+      <div class="container">
+          <div class="icon">
+              <img src="Images/CharlotteGamesLogoWithText.png" alt="Video Game Icon">
+          </div>
+          <nav>
+              <a href="newConnection.html">Plan a new meetup</a>
+              <a href="#" class="inactive">Log In</a>
+              <a href="#" class="inactive">Sign Up</a>
+          </nav>
+      </div>
+  </header>
+  
+  <header>
+      <nav class="second">
+          <a href="index.html" class="inactive">Home</a>
+          <a href="meetups.html" class="inactive">Meetups</a>
+          <a href="about.html" class="inactive">About</a>
+      </nav>
+  </header>
 
-    <h1> <br> <br> Create a New Connection <br> </h1>
+    <h1> <br> Create a Gaming Meetup <br> </h1>
     
     <div class='pictures'>
       <img src="Images/gaming.webp" alt="Couple playing video games together">
@@ -26,40 +38,41 @@
 
 
     <form class="form"> <!--action="" -->
-      <label for="topic" method="post">Topic:</label>
-      <input type="text" id="topic" name="topic" placeholder="Enter the topic of your connection" class="input-field"> 
+      <br>
+      <label for="title" method="post">Title:</label>
+      <input type="text" id="title" name="title" placeholder="Enter the title of your event" class="input-field">
       <br><br>
 
-      <label for="title" method="post">Title:</label>
-      <input type="text" id="title" name="title" placeholder="Enter the title of your connection" class="input-field">
+      <label for="game" method="post">Game:</label>
+      <input type="text" id="game" name="game" placeholder="Enter the game that will be played" class="input-field"> 
       <br><br>
 
       <label for="host" method="post">Host:</label>
-      <input type="text" id="host" name="host" placeholder="Enter the host of your connection" class="input-field"> 
+      <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field"> 
       <br><br>
 
       <label for="details" method="post">Details:</label>
-      <input type="text" id="details" name="details" placeholder="Enter the details of your connection"  class="input-field"> 
+      <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field"> 
       <br><br>
 
-      <label for="where" method="post">Where:</label>
-      <input type="text" id="where" name="where" placeholder="Enter the location of your connection"  class="input-field"> 
+      <label for="location" method="post">Location:</label>
+      <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field"> 
       <br><br>
 
       <label for="when" method="post">When:</label>
       <input type="date" id="when" name="when" placeholder="mm/dd/yyyy" class="input-field">
       <br><br>
 
-      <label for="start" method="post">Start:</label>
+      <label for="start" method="post">Start Time:</label>
       <input type="time" id="start" name="start" placeholder="--:-- --" class="input-field"> 
       <br><br>
 
-      <label for="end" method="post">End:</label>
+      <label for="end" method="post">End Time:</label>
       <input type="time" id="end" name="end" placeholder="--:-- --" class="input-field"> 
       <br><br>
 
-      <label for="image" method="post">Image:</label>
-      <input id="image" name="image" type="file" accept="image/*"/>
+      <label for="file_extension" method="post">Add Flyer:</label>
+      <input id="file_extension" name="file_extension" type="file" accept="file_extension/*"/>
       <br><br>
       
       <input type="submit" method="post" src="Images/submit-button.png" width="400" height="50">
