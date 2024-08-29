@@ -113,4 +113,6 @@ footer {
 .submit-button{
   background-color: green;
   color: white;
+  border: none; 
+  cursor: pointer;
 }
