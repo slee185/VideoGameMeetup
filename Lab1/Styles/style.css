@@ -109,3 +109,8 @@ footer {
   width: 800px;
   height: 20px;
 }
+
+.submit-button{
+  background-color: green;
+  color: white;
+}
