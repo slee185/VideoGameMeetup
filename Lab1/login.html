@@ -33,18 +33,22 @@
 
 
     <main>
-        <h1>Search For Upcoming Meetups.</h1> 
+        <h1>Login to exisiting account</h1> 
+        <p>Sign up if you don't already have an account.</p>
+        <br><br>
+        <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
         
-        <p>Check out all the awesome gaming meetups you can join.</p>
-        <p>Create your own meetup and see how fun gaming is with others!</p>
-        <br><br><br>
-        <form action="">
-            <label for="site-search"><b>Search for Meetups:</b></label>
-            <input type="search" id="site-search" name="meetup" />
-
-            <button>Search</button>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+        
+            <button type="submit">Login</button>
+            <label>
+              <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
             <br><br>
-        </form>
+          </div>
     </main>
     <footer>
         <p>&copy; 2024 Charlotte Gaming Meetups. All rights reserved.</p>

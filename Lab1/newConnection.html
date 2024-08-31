@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href ="Images/website-icon-1.gif">
     <meta charset="UTF-8">
     <meta name="author" content="Jacob Miller and Stephanie Karp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
@@ -16,19 +17,19 @@
           </div>
           <nav>
               <a href="newConnection.html">Plan a new meetup</a>
-              <a href="#" class="inactive">Log In</a>
+              <a href="login.html">Log In</a>
               <a href="#" class="inactive">Sign Up</a>
           </nav>
       </div>
-  </header>
+    </header>
   
-  <header>
+    <header>
       <nav class="second">
-          <a href="index.html" class="inactive">Home</a>
-          <a href="meetups.html" class="inactive">Meetups</a>
-          <a href="about.html" class="inactive">About</a>
+          <a href="index.html">Home</a>
+          <a href="meetups.html">Meetups</a>
+          <a href="about.html">About</a>
       </nav>
-  </header>
+    </header>
 
     <h1> <br> Create a Gaming Meetup <br> </h1>
     
@@ -39,39 +40,39 @@
 
     <form class="form"> <!--action="" -->
       <br>
-      <label for="title" method="post">Name:</label>
-      <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field">
+      <label for="title" method="post"><b>Name:</b></label>
+      <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required>
       <br><br>
 
-      <label for="game" method="post">Game:</label>
-      <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field"> 
+      <label for="game" method="post"><b>Game:</b></label>
+      <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required> 
       <br><br>
 
-      <label for="host" method="post">Host:</label>
-      <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field"> 
+      <label for="host" method="post"><b>Host:</b></label>
+      <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
       <br><br>
 
-      <label for="details" method="post">Details:</label>
-      <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field"> 
+      <label for="details" method="post"><b>Details:</b></label>
+      <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required> 
       <br><br>
 
-      <label for="location" method="post">Location:</label>
-      <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field"> 
+      <label for="location" method="post"><b>Location:</b></label>
+      <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field" required> 
       <br><br>
 
-      <label for="when" method="post">When:</label>
-      <input type="date" id="when" name="when" placeholder="mm/dd/yyyy" class="input-field">
+      <label for="when" method="post"><b>When:</b></label>
+      <input type="date" id="when" name="when" placeholder="mm/dd/yyyy" class="input-field" required>
       <br><br>
 
-      <label for="start" method="post">Start Time:</label>
-      <input type="time" id="start" name="start" placeholder="--:-- --" class="input-field"> 
+      <label for="start" method="post"><b>Start Time:</b></label>
+      <input type="time" id="start" name="start" placeholder="--:-- --" class="input-field" required> 
       <br><br>
 
-      <label for="end" method="post">End Time:</label>
-      <input type="time" id="end" name="end" placeholder="--:-- --" class="input-field"> 
+      <label for="end" method="post"><b>End Time:</b></label>
+      <input type="time" id="end" name="end" placeholder="--:-- --" class="input-field" required> 
       <br><br>
 
-      <label for="file_extension" method="post">Add Flyer:</label>
+      <label for="file_extension" method="post"><b>Add Flyer:</b></label>
       <input id="file_extension" name="file_extension" type="file" accept="file_extension/*"/>
       <br><br>
     
