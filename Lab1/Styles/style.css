@@ -49,13 +49,31 @@ nav a:hover {
   margin: 0 10px;
 }
 main {
-  padding: 20px;
+  padding: 100px;
 }
 footer {
   background-color: #0f3f31;
   color: white;
   padding: 10px 0;
   font-size: 14px;
+  position:bottom;
+  bottom:0;
+  left:0;
+  width: 100%;
+}
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px;
+}
+.social-icons img{
+  position: right;
+  bottom: 10px;
+  right: 10px;
+  max-height: 30px;
+  padding: 5px;
 }
 
 .input-field {
