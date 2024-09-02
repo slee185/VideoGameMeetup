@@ -89,6 +89,7 @@ main {
 .input-field {
   width: 800px;
   height: 20px;
+  
 }
 
 .submit-button{
@@ -96,6 +97,9 @@ main {
   color: white;
   border: none; 
   cursor: pointer;
+  position: absolute;
+  left: 42%;
+  top: 90%;
 }
 
 .wrap-text {
@@ -109,8 +113,6 @@ main {
   left: 25%;
   top: 30%;
 }
-
-
 .display-meetups {
   display: flex;
   flex-direction: column;
@@ -118,7 +120,6 @@ main {
   max-width: 400px;
   margin: 0 auto;
 }
-
 .meetup-info {
   display: grid;
   grid-template-columns: 120px 1fr; 
@@ -126,16 +127,55 @@ main {
   column-gap: 25px;
   margin-top: 5px;
 }
-
 .info-labels p {
   text-align: right; 
   font-weight: bold;
   margin: 0; 
 }
-
 .info-answers p {
   margin: 0;
   text-align: left;
 }
+
+
+
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.form-info{
+  display: grid;
+  grid-template-columns: 100px 1fr; 
+  row-gap: 20px;
+  column-gap: 25px;
+  margin-top: 5px;
+}
+.form-labels label{
+  text-align: right; 
+  font-weight: bold;
+  margin: 0; 
+  padding-bottom: 5px;
+}
+
+.form-answers {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+}
+
+#file_extension {
+  width: 100%; 
+  height: 30px; 
+  padding: 4px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
   
 
