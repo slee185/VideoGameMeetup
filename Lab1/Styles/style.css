@@ -121,14 +121,14 @@ footer .container {
   margin-right: 5px; 
 }
 
-
 .info-labels p {
   font-weight: bold;
 }
 
-
-
-
-
-
+.meetup-list {
+  display: flex;
+  flex-direction: row; 
+  justify-content: flex-start;
+  margin-top: 5px; 
+}
 
