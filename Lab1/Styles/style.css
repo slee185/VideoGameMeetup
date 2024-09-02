@@ -106,39 +106,36 @@ main {
 
 .images-left {
   position: absolute;
-  left: 20%;
-  top: 55%;
+  left: 25%;
+  top: 30%;
 }
+
 
 .display-meetups {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-  max-width: 400px; 
-  margin: 0 auto; 
+  align-items: flex-start;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .meetup-info {
-  display: flex;
-  flex-direction: row; 
-  justify-content: flex-start;
-  margin-top: 5px; 
-}
-
-.info-labels, .info-answers {
-  display: flex;
-  flex-direction: column;
-  margin-right: 5px; 
+  display: grid;
+  grid-template-columns: 120px 1fr; 
+  row-gap: 20px;
+  column-gap: 25px;
+  margin-top: 5px;
 }
 
 .info-labels p {
+  text-align: right; 
   font-weight: bold;
+  margin: 0; 
 }
 
-.meetup-list {
-  display: flex;
-  flex-direction: row; 
-  justify-content: flex-start;
-  margin-top: 5px; 
+.info-answers p {
+  margin: 0;
+  text-align: left;
 }
+  
 
