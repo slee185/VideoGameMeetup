@@ -97,9 +97,14 @@ main {
   color: white;
   border: none; 
   cursor: pointer;
-  position: absolute;
+  position: relative;
+  left: 30%;
+  
+ /* position: absolute; */
+ /*
   left: 42%;
   top: 90%;
+  */
 }
 
 .wrap-text {
