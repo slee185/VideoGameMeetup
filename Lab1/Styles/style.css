@@ -118,6 +118,18 @@ main {
   left: 25%;
   top: 30%;
 }
+.images-meetups-left {
+  position: absolute;
+  scale: 75%;
+  left: 15%;
+  top: 30%;
+}
+.images-meetups-right {
+  position: absolute;
+  scale: 80%;
+  right: 13%;
+  top: 35%;
+}
 .display-meetups {
   display: flex;
   flex-direction: column;
@@ -176,7 +188,7 @@ main {
   height: 30px; 
   padding: 4px;
   font-size: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #5e5d5d;
   border-radius: 4px;
   box-sizing: border-box;
 }
