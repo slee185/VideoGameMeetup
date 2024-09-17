@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "/Users/slee185/Documents/GitHub/hw02/VideoGameMeetup/Lab1/index.html"
+            "file": "/Users/slee185/Documents/GitHub/hw02/VideoGameMeetup/VideoGameMeetup/index.html"
         }
     ]
 }
