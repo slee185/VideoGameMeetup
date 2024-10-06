@@ -1,7 +1,8 @@
 // Require Modules
 const express = require('express');
 const morgan = require('morgan');
-//const storyRoutes = require('./routes/');
+const methodOverride = require('method-override');
+const eventRoutes = require('./routes/eventRoutes');
 
 // Create App
 const app = express();
@@ -15,16 +16,41 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
+app.use(methodOverride('_method'));
 
-/*
+
+
+
+
 // Set up Routes
 app.get('/', (req, res)=> {
     res.render('index');
 });
-*/
 
 // Mount Rount
-//app.use('/stories', storyRoutes);
+app.use('/events', eventRoutes);
+
+app.use((req, res, next) => {
+    let err = new Error('Server cannot locate ' + req.url);
+    err.status = 404;
+    next(err);
+});
+
+app.use((err, req, res, next)=>{
+    console.log(err.stack);
+    if (!err.status) {
+        err.status = 500;
+        err.message = ("Internal Server Error");
+    }
+    res.status(err.status);
+    res.render('error', {error: err});
+});
+
+
+
+
+
+
 
 
 // Start the Server
