@@ -1,44 +1,43 @@
 <%- include('../partials/header.ejs') %>
  
-  <!-- <form class="form"> -->
-    <form action = '/stories' method = 'POST' class="form"></form>
-      <div class="form-info"> 
-        <div class="form-labels">
-          <label for="title" ><b>Name:</b></label> <br><br>
-          <label for="game" ><b>Game:</b></label> <br><br>
-          <label for="platform"><b>Platform:</b></label><br><br>
-          <label for="host"><b>Host:</b></label><br><br>
-          <label for="details"><b>Details:</b></label><br><br>
-          <label for="location"><b>Location:</b></label><br><br>
-          <label for="when"><b>Date:</b></label><br><br>
-          <label for="start"><b>Start Time:</b></label><br><br>
-          <label for="end"><b>End Time:</b></label><br><br>
-          <label for="file_extension"><b>Add Flyer:</b></label><br><br>
-        </div>
-
-        <div class="form-answers">
-          <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required> 
-          <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required>   
-          <select id="platform" name="platform" class="input-field" required> 
-            <option value="" disabled selected>Select a platform</option>
-            <option value=<%= event.platform%>>Nintendo Switch</option>
-            <option value=<%= event.platform%>>Xbox</option>
-            <option value=<%= event.platform%>>PlayStation</option>
-            <option value=<%= event.platform%>>Mobile</option>
-            <option value=<%= event.platform%>>PC</option>
-            <option value=<%= event.platform%>>Other</option>
-          </select>  
-          <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
-          <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required>   
-          <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field" required>  
-          <input type="date" id="when" name="when" class="input-field" required>
-          <input type="time" id="start" name="start"  class="input-field" required> 
-          <input type="time" id="end" name="end" class="input-field" required>
-          <input id="file_extension" name="file_extension" type="file" accept="file_extension/*"> <br>
-          <button type="submit" style="width: 300px; height: 30px;"  class="submit-button">Create Event</button> <br><br>
-        </div>
+  <form action = '/events' method = 'POST' class="form"></form>
+    <div class="form-info"> 
+      <div class="form-labels">
+        <label for="title" ><b>Name:</b></label> <br><br>
+        <label for="game" ><b>Game:</b></label> <br><br>
+        <label for="platform"><b>Platform:</b></label><br><br>
+        <label for="host"><b>Host:</b></label><br><br>
+        <label for="details"><b>Details:</b></label><br><br>
+        <label for="location"><b>Location:</b></label><br><br>
+        <label for="when"><b>Date:</b></label><br><br>
+        <label for="start"><b>Start Time:</b></label><br><br>
+        <label for="end"><b>End Time:</b></label><br><br>
+        <label for="file_extension"><b>Add Flyer:</b></label><br><br>
       </div>
-    </form> 
+
+      <div class="form-answers">
+        <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required> 
+        <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required>   
+        <select id="platform" name="platform" class="input-field" required> 
+          <option value="" disabled selected>Select a platform</option>
+          <option value=<%= event.platform%>>Nintendo Switch</option>
+          <option value=<%= event.platform%>>Xbox</option>
+          <option value=<%= event.platform%>>PlayStation</option>
+          <option value=<%= event.platform%>>Mobile</option>
+          <option value=<%= event.platform%>>PC</option>
+          <option value=<%= event.platform%>>Other</option>
+        </select>  
+        <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
+        <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required>   
+        <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field" required>  
+        <input type="date" id="when" name="when" class="input-field" required>
+        <input type="time" id="start" name="start"  class="input-field" required> 
+        <input type="time" id="end" name="end" class="input-field" required>
+        <input id="file_extension" name="file_extension" type="file" accept="file_extension/*"> <br>
+        <button type="submit" style="width: 300px; height: 30px;"  class="submit-button">Create Event</button> <br><br>
+      </div>
+    </div>
+  </form> 
 
 
-    <%- include('../partials/footer.ejs')%>
+  <%- include('../partials/footer.ejs')%>

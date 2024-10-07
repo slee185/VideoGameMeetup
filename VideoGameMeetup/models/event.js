@@ -19,8 +19,8 @@ const events = [
     },
     {
         id: '2',
-        name: 'Super Smash Tournament',
-        game: 'Super Smash Bros',
+        name: 'Rocket League Tournament',
+        game: 'Rocket League',
         platform: 'Nintendo Switch',
         host: 'Jacob Niner',
         details: 'Fun Super Smash Bros tournament for all skill levels. Come stop by and participate or watch all the action!',
@@ -33,8 +33,8 @@ const events = [
     },
     {
         id: '3',
-        name: 'Super Smash Tournament',
-        game: 'Super Smash Bros',
+        name: 'Pokemon X&Y Tournament',
+        game: 'Pokemon X&Y',
         platform: 'Nintendo Switch',
         host: 'Jacob Niner',
         details: 'Fun Super Smash Bros tournament for all skill levels. Come stop by and participate or watch all the action!',
@@ -60,3 +60,39 @@ const events = [
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     }
 ];
+
+
+exports.find = ()=> events;
+
+exports.findById = function(id) {
+    return events.find(event=>event.id === id);
+};
+
+exports.save = function(event) {
+    event.id = uuidv4();
+    event.createdAt = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+    events.push(event);
+}
+
+exports.updateById = function(id, newEvent) {
+    let event = events.find(event=>event.id === id);
+    if (event) {
+        event.name = newEvent.name;
+        event.game = newEvent.game;
+        // event.game = newEvent.game;
+        // event...
+        // event...
+        return true;
+    } else {
+        return false;
+    }
+}
+exports.deleteById = function(id) {
+    let index = events.findIndex(event => event.id === id);
+    if (index !== -1) {
+        events.splice(index, 1);
+        return true;
+    } else {
+        return false;
+    }
+}
