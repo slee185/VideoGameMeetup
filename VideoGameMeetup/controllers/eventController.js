@@ -5,6 +5,10 @@ exports.index = (req, res) => {
     res.render('./event/index', {events});
 };
 
+exports.new = (req, res)=> {
+    res.render('./event/new');
+}
+
 exports.create = (req, res) => {
     let event = req.body;
     model.save(event);

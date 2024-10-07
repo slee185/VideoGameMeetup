@@ -1,5 +1,12 @@
-<%- include('./partials/header.ejs') %>
- 
-
-
-    <%- include('./partials/footer.ejs') %>
+<%- include('../partials/header.ejs') %>
+    <div class = "content">
+        <% if(events.length) { %>
+            <p>Select to view a meetup</p>
+            <%events.forEach(event=>{ %>
+            <a href = "/events/<%= event.id%>"> <p><%=event.title%></p> </a>
+        <%  });
+            } else { %>
+            <p>No events found!</p>
+        <%}%>
+    </div>
+    <%- include('../partials/footer.ejs')%>
