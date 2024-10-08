@@ -1,6 +1,12 @@
 <%- include('../partials/header.ejs') %>
+    
+    <h1> <br><br><br> Create a Gaming Meetup <br> </h1>
+        
+    <div class='pictures'>
+    <img src="/images/gaming.webp" alt="Couple playing video games together">
+    </div>
     <form action = '/events' method = 'POST' class="form"></form>
-        <div class="form-info"> 
+        <div class="form-info">
             <div class="form-labels">
                 <label for="title" ><b>Name:</b></label> <br><br>
                 <label for="game" ><b>Game:</b></label> <br><br>
@@ -18,25 +24,13 @@
                 <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required> 
                 <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required>   
                 <select id="platform" name="platform" class="input-field" required> 
-                <!-- 
-                <option value="" disabled selected>Select a platform</option>
-                <option value=<%= event.platform%>>Nintendo Switch</option>
-                <option value=<%= event.platform%>>Xbox</option>
-                <option value=<%= event.platform%>>PlayStation</option>
-                <option value=<%= event.platform%>>Mobile</option>
-                <option value=<%= event.platform%>>PC</option>
-                <option value=<%= event.platform%>>Other</option>
-                -->
-
-                <option value="" disabled selected>Select a platform</option>
-                <option value= nintendo-switch>Nintendo Switch</option> nintendo-switch
-                <option value= "xbox">Xbox</option>
-                <option value="playstation">PlayStation</option>
-                <option value="mobile">Mobile</option>
-                <option value="pc">PC</option>
-                <option value="other">Other</option>
-
-                
+                    <option value="" disabled selected>Select a platform</option>
+                    <option value= nintendo-switch>Nintendo Switch</option> nintendo-switch
+                    <option value= "xbox">Xbox</option>
+                    <option value="playstation">PlayStation</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="pc">PC</option>
+                    <option value="other">Other</option>
                 </select>  
                 <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
                 <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required>   
@@ -45,7 +39,7 @@
                 <input type="time" id="start" name="start"  class="input-field" required> 
                 <input type="time" id="end" name="end" class="input-field" required>
                 <input id="file_extension" name="file_extension" type="file" accept="file_extension/*"> <br>
-                <button type="submit" style="width: 300px; height: 30px;"  class="submit-button">Create Event</button> <br><br>
+                <button type="submit" style="width: 300px; height: 30px;"  class="submit-button" value="Submit">Create Event</button> <br><br>
             </div>
         </div>
     </form> 

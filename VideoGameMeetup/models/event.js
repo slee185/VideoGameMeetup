@@ -10,9 +10,9 @@ const events = [
         host: 'Jacob Niner',
         details: 'Fun Super Smash Bros tournament for all skill levels. Come stop by and participate or watch all the action!',
         location: 'Woodward Hall 2nd Floor lounge',
-        date: '',
-        startTime: '',
-        endTime: '',
+        date: '10/25/2024',
+        startTime: '2:00pm',
+        endTime: '5:00pm',
         imageFlyer: '',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
 
