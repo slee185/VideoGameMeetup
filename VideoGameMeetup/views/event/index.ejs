@@ -3,7 +3,7 @@
 <br><br><br>
     <div class = "content">
         <% if(events.length) { %>
-            <h2>Select to view a meetup</h2>
+            <h1>Select to view a meetup</h1>
             <%events.forEach(event=>{ %>
             <a href = "/events/<%= event.id%>"> <p><%=event.name%></p> </a>
     </div>

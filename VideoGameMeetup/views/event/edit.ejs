@@ -1,6 +1,7 @@
 <%- include('../partials/header.ejs') %>
  
-  <form action = '/events' method = 'POST' class="form"></form>
+  <!-- <form action = '/events' method = 'POST' class="form"></form> -->
+  <form method = "POST" action = "/events/<%= event.id%>?_method=PUT" class="form-answers"></form>
     <div class="form-info"> 
       <div class="form-labels">
         <label for="title" ><b>Name:</b></label> <br><br>
