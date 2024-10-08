@@ -12,10 +12,10 @@ router.get('/new', controller.new);
 router.post('/', controller.create);
 
 // GET: Send details of event identified by id
-router.get('/:id', controller.show);
+router.get('/:id', controller.show); 
 
 // GET: Send html form for editing an existing event
-router.get('/:id/edit', controller.edit);
+router.get('/:id/edit', controller.edit); 
 
 // PUT: Update the event identified by id
 router.put('/:id', controller.update);
