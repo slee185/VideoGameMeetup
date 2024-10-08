@@ -4,6 +4,7 @@ const {v4: uuidv4} = require('uuid');
 const events = [
     {
         id: '1',
+        type: 'tournament',
         name: 'Super Smash Tournament',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
@@ -19,6 +20,7 @@ const events = [
     },
     {
         id: '2',
+        type: 'tournament',
         name: 'Rocket League Tournament',
         game: 'Rocket League',
         platform: 'PC',
@@ -33,6 +35,7 @@ const events = [
     },
     {
         id: '3',
+        type: 'tournament',
         name: 'Pokemon X&Y Tournament',
         game: 'Pokemon X&Y',
         platform: 'Nintendo DS',
@@ -47,6 +50,7 @@ const events = [
     },
     {
         id: '4',
+        type: 'tournament',
         name: 'IDK Tournament',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
@@ -77,11 +81,17 @@ exports.save = function(event) {
 exports.updateById = function(id, newEvent) {
     let event = events.find(event=>event.id === id);
     if (event) {
+        event.type = newEvent.type;
         event.name = newEvent.name;
         event.game = newEvent.game;
-        // event.game = newEvent.game;
-        // event...
-        // event...
+        event.platform = newEvent.platform;
+        event.host = newEvent.host;
+        event.details = newEvent.details;
+        event.location = newEvent.location;
+        event.date = newEvent.date;
+        event.startTime = newEvent.startTime;
+        event.endTime = newEvent.endTime;
+        event.imageFlyer = newEvent.imageFlyer;
         return true;
     } else {
         return false;
