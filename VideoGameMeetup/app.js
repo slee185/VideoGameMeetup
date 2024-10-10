@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const eventRoutes = require('./routes/eventRoutes');
-const {fileUpload} = require({dest: './middleware/fileUpload' });
+const {fileUpload} = require('./middleware/fileUpload');
 
 // Create App
 const app = express();
