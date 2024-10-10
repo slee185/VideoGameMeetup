@@ -34,7 +34,6 @@ exports.fileUpload = (req, res, next) => {
             next(err);
           } else {
             next();
-          }
-            
+          }  
     });
 }

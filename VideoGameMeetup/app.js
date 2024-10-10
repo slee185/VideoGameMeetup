@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const eventRoutes = require('./routes/eventRoutes');
+const {fileUpload} = require({dest: './middleware/fileUpload' });
 
 // Create App
 const app = express();
@@ -17,10 +18,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
 app.use(methodOverride('_method'));
-
-
-
-
 
 // Set up Routes
 app.get('/', (req, res)=> {
@@ -46,12 +43,10 @@ app.use((err, req, res, next)=>{
     res.render('error', {error: err});
 });
 
-
-
-
-
-
-
+app.post('/', fileUpload, (req, res, next) => {
+    let image = "./images/" + req.file.filename;
+    res.render('index', {image});
+});
 
 // Start the Server
 app.listen(port, host, ()=> {
