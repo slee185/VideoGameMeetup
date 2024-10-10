@@ -68,9 +68,7 @@ const events = [
 
 exports.find = ()=> events;
 
-exports.findById = function(id) {
-    return events.find(event=>event.id === id);
-};
+exports.findById = id => events.find(event=>event.id === id);
 
 exports.save = function(event) {
     event.id = uuidv4();
