@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <meta name="author" content="Jacob Miller and Stephanie Karp">
     <title>Charlotte Gaming Meetups</title>
 
@@ -16,11 +16,13 @@
 <header>
     <div class="container">
         <div class="icon">
-            <img src="/images/CharlotteGamesLogoWithText.png" alt="Video Game Icon">
+            <a href="/">
+                <img src="/images/CharlotteGamesLogoWithText.png" alt="Video Game Icon">
+            </a>
         </div>
         <nav>
-            <a href='/events/new'>Plan a new meetup</a>
-            <a href="/login">Log In</a>
+            <a href='/events/new'>New Meetup</a>
+            <a href="/html/login.html">Log In</a>
             <a href="/html/signup.html">Sign Up</a>
         </nav>
     </div>
@@ -28,25 +30,14 @@
 
   <header>
     <nav class="second">
-    <!--
-        <a href="index.html">Home</a>
-        <a href="meetups.html">Meetups</a>
-        <a href="about.html">About</a>
-    -->
-
-        <a href='/'>Home</a>
         <a href='/events'>Meetups</a>
-        <a href='/events/new'>Plan a new meetup</a>
-        <a href="about.html">About</a>
-        
     </nav>
   </header>
 
-
     <main>
-        <br><h1>Create an Account</h1> 
+        <h1>Create an Account</h1> 
         <p>Already have an account? Click on the login button instead!</p>
-        <br><br>
+        <br>
         <div class="container">
             <label for="username"><b>New Username</b></label>
             <input type="text" id="username" placeholder="Create a Username" name="username" required>
@@ -58,24 +49,28 @@
             <input type="password" id="new-password" placeholder="Retype Password" name="new-password" required>
             <br><br>
             <button type="submit">Sign Up</button>
-            <br><br>
           </div>
     </main>
+
     <footer>
-      <div class="container">
-          <p>&copy; 2024 Charlotte Gaming Meetups. All rights reserved.</p>
-          
-          <div class="social-icons">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                  <img src = "/images/Facebook_Logo_white.png" alt="Facebook Logo">
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                  <img src = "/images/Instagram_Glyph_White.png" alt="Instagram Logo">
-              </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer">
-                  <img src = "/images/x-logo-white.png" alt="X Logo">
-              </a>
-          </div>
-      </div>
-  </footer>
-  </body>
+        <div class="container">
+            <p>&copy; 2024 Charlotte Gaming Meetups.</p>
+            <nav>
+                <a href="/html/about.html">About</a>
+                <a href="/html/contactUs.html">Contact Us</a>
+            </nav>
+            
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <img src = "/images/Facebook_Logo_white.png" alt="Facebook Logo">
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <img src = "/images/Instagram_Glyph_White.png" alt="Instagram Logo">
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer">
+                    <img src = "/images/x-logo-white.png" alt="X Logo">
+                </a>
+            </div>
+        </div>
+    </footer>
+</html>
