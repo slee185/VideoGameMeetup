@@ -72,6 +72,13 @@ exports.findById = id => events.find(event=>event.id === id);
 exports.save = function(event) {
     event.id = uuidv4();
     event.createdAt = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+
+  // Ensure date, startTime, and endTime are set
+    event.date = event.date || ""; 
+    event.startTime = event.startTime || ""; 
+    event.endTime = event.endTime || ""; 
+
+
     events.push(event);
 }
 
@@ -85,9 +92,16 @@ exports.updateById = function(id, newEvent) {
         event.host = newEvent.host;
         event.details = newEvent.details;
         event.location = newEvent.location;
+        /*
         event.date = newEvent.date;
         event.startTime = newEvent.startTime;
         event.endTime = newEvent.endTime;
+        */
+
+        event.date = newEvent.when || newEvent.date;
+        event.startTime = newEvent.startTime;
+        event.endTime = newEvent.endTime;
+
         event.imageFlyer = newEvent.imageFlyer;
         return true;
     } else {

@@ -77,12 +77,20 @@ nav a:hover {
   margin: 0 10px;
 }
 main {
-  flex: 1;
+  /* flex: 1;
   padding: 60px 20px 50px;
   width: 100%;
   overflow-y: auto;
   margin-top: 120px;
+  box-sizing: border-box; */
+  flex: 1;
+  padding: 60px 20px 50px;
+  width: 100%;
+  overflow-y: auto;
+  margin-top: 100px; /* Adjusted to fit header */
+  margin-bottom: 50px; /* Fit footer */
   box-sizing: border-box;
+  
 }
 
 .social-icons img{
@@ -163,11 +171,13 @@ main {
 }
 
 .form{
+  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   max-width: 1000px;
   margin: 0 auto;
+ 
 }
 .form-info{
   display: grid;

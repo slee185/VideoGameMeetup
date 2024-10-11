@@ -12,6 +12,7 @@ exports.new = (req, res)=> {
 exports.create = (req, res) => {
     let event = req.body;
     model.save(event);
+    console.log(model.find());  // Check if the event is added
     res.redirect('/events');
 };
 
