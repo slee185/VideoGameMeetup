@@ -6,15 +6,13 @@
         <% if(events.length) { %>
             <h1>Select to view a meetup</h1>
             <%events.forEach(event=>{ %>
-            <a href = "/events/<%= event.id%>"> <p><%=event.name%></p> </a>
-    </div>
-        <%  });
-            } else { %>
+                <a href = "/events/<%= event.id%>"> <p><%= event.name %></p></a>
+            <%});
+        } else { %>
             <p>No events found!</p>
             <%console.log("NO EVENTS")%>
         <%}%>
     </div>
-
 <%- include('../partials/footer.ejs')%>
 
 

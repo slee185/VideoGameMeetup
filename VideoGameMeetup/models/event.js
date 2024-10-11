@@ -65,7 +65,6 @@ const events = [
     }
 ];
 
-
 exports.find = ()=> events;
 
 exports.findById = id => events.find(event=>event.id === id);

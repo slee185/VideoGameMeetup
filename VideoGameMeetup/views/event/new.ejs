@@ -2,9 +2,6 @@
     
     <h1> <br><br><br> Create a Gaming Meetup <br> </h1>
         
-    <div class='pictures'>
-    <img src="/images/gaming.webp" alt="Couple playing video games together">
-    </div>
     <form action = '/events' enctype="multipart/form-data" method = 'POST' class="form">
         <div class="form-info">
             <div class="form-labels">
@@ -38,13 +35,12 @@
                 <input type="date" id="when" name="when" class="input-field" required>
                 <input type="time" id="start" name="start"  class="input-field" required> 
                 <input type="time" id="end" name="end" class="input-field" required>
-                <input id="file_extension" name="file_extension" type="file" accept="file_extension/*">
+                <input id="file_extension" id="image" name="file_extension" type="file" accept="file_extension/*">
                 <!-- <button type="submit" style="width: 300px; height: 30px;"  class="submit-button" value="Submit" formmethod="POST">Create Event</button> <br><br> -->
                 <input type="submit" value="submit"> <br><br>
             </div>
         </div>
     </form> 
-</form>
 
 
     <%- include('../partials/footer.ejs')%>

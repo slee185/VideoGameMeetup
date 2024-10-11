@@ -1,9 +1,15 @@
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   text-align: center;
+  position: relative;
+  min-height: 100vh;
 }
 header {
   color: white;
@@ -63,7 +69,7 @@ nav a:hover {
   position: fixed;
   width: 100%;
   height: 20px;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   top: 100px;
   text-align: left;
   display: flex;
@@ -75,7 +81,12 @@ nav a:hover {
   margin: 0 10px;
 }
 main {
-  padding: 100px;
+  position: absolute;
+  top: 120px;
+  bottom: 50px;
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .social-icons img{
@@ -153,8 +164,6 @@ main {
   margin: 0;
   text-align: left;
 }
-
-
 
 .form{
   display: flex;

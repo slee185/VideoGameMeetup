@@ -43,9 +43,10 @@ app.use((err, req, res, next)=>{
     res.render('error', {error: err});
 });
 
-app.post('/', fileUpload, (req, res, next) => {
-    let image = "./images/" + req.file.filename;
+app.post('/events', fileUpload, (req, res, next) => {
+    let image = "./public/images/" + req.file.filename;
     res.render('index', {image});
+    console.log('file has been submitted ', req.file, req.body);
 });
 
 // Start the Server

@@ -1,9 +1,6 @@
 <%- include('../partials/header.ejs') %>
     <div class="display-meetups">
-        <div class = "content">
             <br><br>
-            <button><img src = "/images/edit_icon.png" alt="Edit Button"></button>
-            <button><img src = "/images/trash_icon.png" alt="Trash Button"></button>
             <h3><%=event.name%></h3>
             <small>Posted <%=event.createdAt%> by <%=event.host%></small>
             <div id = "event"><%=event.game%></div>
@@ -38,7 +35,6 @@
                 <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit"><img src = "/images/edit_icon.png" alt="Edit Button"></button>
                 <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE"><img src = "/images/trash_icon.png" alt="Trash Button"></button>
             </form>
-        </div>
     </div>
 
     <%- include('../partials/footer.ejs')%>
