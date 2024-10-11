@@ -93,9 +93,11 @@ main {
   padding: 5px;
 }
 
-.input-field {
+.input-field, select.input-field {
   width: 800px;
   height: 20px;
+  line-height: 20px;
+  font-size: 16px;
 }
 
 .submit-button{

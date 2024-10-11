@@ -1,11 +1,13 @@
 <%- include('../partials/header.ejs') %>
   <main>
     <h1>Edit <%= event.name%> <br> </h1>
-      <form method = "POST" action = "/events/<%= event.id%>?_method=PUT" class="form-answers">
+
+      <form method = "POST" action = "/events/<%= event.id%>?_method=PUT" class="form">
         <div class="form-info"> 
           <div class="form-labels">
             <label for="title" ><b>Name:</b></label> <br><br>
             <label for="game" ><b>Game:</b></label> <br><br>
+            <label for="category" ><b>Category:</b></label> <br><br>
             <label for="platform"><b>Platform:</b></label><br><br>
             <label for="host"><b>Host:</b></label><br><br>
             <label for="details"><b>Details:</b></label><br><br>
@@ -18,10 +20,15 @@
 
           <div class="form-answers">
             <input type="text" id="title" name="title" value="<%= event.name%>" class="input-field" required> 
-            <input type="text" id="game" name="game" value="<%= event.game%>" class="input-field" required>   
-            <select id="platform" name="platform" class="input-field" required> 
+            <input type="text" id="game" name="game" value="<%= event.game%>" class="input-field" required>
+            <select id="category" name="type" class="select.input-field" required>
+              <option value="" selected><%= event.type%></option>
+              <option value=<%= event.type%>>Tournament</option>
+              <option value=<%= event.type%>>Free Play</option>
+            </select>    
+            <select id="platform" name="platform" class="select.input-field" required> 
               <option value="" selected><%= event.platform%></option>
-              <option value=<%= event.platform%>>Nintendo Switch</option> nintendo-switch
+              <option value=<%= event.platform%>>Nintendo Switch</option>
               <option value=<%= event.platform%>>Xbox</option>
               <option value=<%= event.platform%>>PlayStation</option>
               <option value=<%= event.platform%>>Mobile</option>

@@ -4,7 +4,7 @@ const {v4: uuidv4} = require('uuid');
 const events = [
     {
         id: '1',
-        type: 'tournament',
+        type: 'Tournament',
         name: 'Super Smash Tournament',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
@@ -20,7 +20,7 @@ const events = [
     },
     {
         id: '2',
-        type: 'tournament',
+        type: 'Tournament',
         name: 'Rocket League Tournament',
         game: 'Rocket League',
         platform: 'PC',
@@ -35,7 +35,7 @@ const events = [
     },
     {
         id: '3',
-        type: 'tournament',
+        type: 'Tournament',
         name: 'Pokemon X&Y Tournament',
         game: 'Pokemon X&Y',
         platform: 'Nintendo DS',
@@ -50,7 +50,7 @@ const events = [
     },
     {
         id: '4',
-        type: 'tournament',
+        type: 'Tournament',
         name: 'IDK Tournament',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
