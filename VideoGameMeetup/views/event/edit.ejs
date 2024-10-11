@@ -22,18 +22,16 @@
             <input type="text" id="title" name="title" value="<%= event.name%>" class="input-field" required> 
             <input type="text" id="game" name="game" value="<%= event.game%>" class="input-field" required>
             <select id="category" name="type" class="select.input-field" required>
-              <option value="" selected><%= event.type%></option>
-              <option value=<%= event.type%>>Tournament</option>
-              <option value=<%= event.type%>>Free Play</option>
+              <option value="tournament" <%= event.type === 'tournament' ? 'selected' : '' %>>Tournament</option>
+              <option value="free-play" <%= event.type === 'free-play' ? 'selected' : '' %>>Free Play</option>
             </select>    
             <select id="platform" name="platform" class="select.input-field" required> 
-              <option value="" selected><%= event.platform%></option>
-              <option value=<%= event.platform%>>Nintendo Switch</option>
-              <option value=<%= event.platform%>>Xbox</option>
-              <option value=<%= event.platform%>>PlayStation</option>
-              <option value=<%= event.platform%>>Mobile</option>
-              <option value=<%= event.platform%>>PC</option>
-              <option value=<%= event.platform%>>Other</option>
+              <option value="nintendo-switch" <%= event.platform === 'nintendo-switch' ? 'selected' : '' %>>Nintendo Switch</option>
+              <option value="xbox" <%= event.platform === 'xbox' ? 'selected' : '' %>>Xbox</option>
+              <option value="playstation" <%= event.platform === 'playstation' ? 'selected' : '' %>>Playstation</option>
+              <option value="mobile" <%= event.platform === 'mobile' ? 'selected' : '' %>>Mobile</option>
+              <option value="pc" <%= event.platform === 'pc' ? 'selected' : '' %>>PC</option>
+              <option value="other" <%= event.platform === 'other' ? 'selected' : '' %>>Other</option>
             </select>  
             <input type="text" id="host" name="host" value="<%= event.host%>" class="input-field" required> 
             <input type="text" id="details" name="details" value="<%= event.details%>"  class="input-field" required>   
