@@ -1,46 +1,45 @@
 <%- include('../partials/header.ejs') %>
-    
-    <h1> <br><br><br> Create a Gaming Meetup <br> </h1>
-        
-    <form action = '/events' enctype="multipart/form-data" method = 'POST' class="form">
-        <div class="form-info">
-            <div class="form-labels">
-                <label for="title" ><b>Name:</b></label> <br><br>
-                <label for="game" ><b>Game:</b></label> <br><br>
-                <label for="platform"><b>Platform:</b></label><br><br>
-                <label for="host"><b>Host:</b></label><br><br>
-                <label for="details"><b>Details:</b></label><br><br>
-                <label for="location"><b>Location:</b></label><br><br>
-                <label for="when"><b>Date:</b></label><br><br>
-                <label for="start"><b>Start Time:</b></label><br><br>
-                <label for="end"><b>End Time:</b></label><br><br>
-                <label for="file_extension"><b>Add Flyer:</b></label><br><br>
+    <main>
+        <h1>Create a Gaming Meetup <br> </h1>
+            
+        <form action = '/events' enctype="multipart/form-data" method = 'POST' class="form">
+            <div class="form-info">
+                <div class="form-labels">
+                    <label for="title" ><b>Name:</b></label> <br><br>
+                    <label for="game" ><b>Game:</b></label> <br><br>
+                    <label for="platform"><b>Platform:</b></label><br><br>
+                    <label for="host"><b>Host:</b></label><br><br>
+                    <label for="details"><b>Details:</b></label><br><br>
+                    <label for="location"><b>Location:</b></label><br><br>
+                    <label for="when"><b>Date:</b></label><br><br>
+                    <label for="start"><b>Start Time:</b></label><br><br>
+                    <label for="end"><b>End Time:</b></label><br><br>
+                    <label for="file_extension"><b>Add Flyer:</b></label><br><br>
+                </div>
+
+                <div class="form-answers">
+                    <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required> 
+                    <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required>   
+                    <select id="platform" name="platform" class="input-field" required> 
+                        <option value="" disabled selected>Select a platform</option>
+                        <option value= nintendo-switch>Nintendo Switch</option> nintendo-switch
+                        <option value= "xbox">Xbox</option>
+                        <option value="playstation">PlayStation</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="pc">PC</option>
+                        <option value="other">Other</option>
+                    </select>  
+                    <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
+                    <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required>   
+                    <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field" required>  
+                    <input type="date" id="when" name="when" class="input-field" required>
+                    <input type="time" id="start" name="start"  class="input-field" required> 
+                    <input type="time" id="end" name="end" class="input-field" required>
+                    <input id="file_extension" id="image" name="file_extension" type="file" accept="file_extension/*">
+                    <!-- <button type="submit" style="width: 300px; height: 30px;"  class="submit-button" value="Submit" formmethod="POST">Create Event</button> <br><br> -->
+                    <input type="submit" value="submit"> <br><br>
+                </div>
             </div>
-
-            <div class="form-answers">
-                <input type="text" id="title" name="title" placeholder="Enter the name of your event" class="input-field" required> 
-                <input type="text" id="game" name="game" placeholder="Enter the game(s) that will be played" class="input-field" required>   
-                <select id="platform" name="platform" class="input-field" required> 
-                    <option value="" disabled selected>Select a platform</option>
-                    <option value= nintendo-switch>Nintendo Switch</option> nintendo-switch
-                    <option value= "xbox">Xbox</option>
-                    <option value="playstation">PlayStation</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="pc">PC</option>
-                    <option value="other">Other</option>
-                </select>  
-                <input type="text" id="host" name="host" placeholder="Enter the host of your event" class="input-field" required> 
-                <input type="text" id="details" name="details" placeholder="Enter the details of your event"  class="input-field" required>   
-                <input type="text" id="location" name="location" placeholder="Enter the location of your event"  class="input-field" required>  
-                <input type="date" id="when" name="when" class="input-field" required>
-                <input type="time" id="start" name="start"  class="input-field" required> 
-                <input type="time" id="end" name="end" class="input-field" required>
-                <input id="file_extension" id="image" name="file_extension" type="file" accept="file_extension/*">
-                <!-- <button type="submit" style="width: 300px; height: 30px;"  class="submit-button" value="Submit" formmethod="POST">Create Event</button> <br><br> -->
-                <input type="submit" value="submit"> <br><br>
-            </div>
-        </div>
-    </form> 
-
-
-    <%- include('../partials/footer.ejs')%>
+        </form> 
+    </main>
+<%- include('../partials/footer.ejs')%>

@@ -1,44 +1,17 @@
 <%- include('../partials/header.ejs') %>
 
-<br><br><br><br><br><br><br>
+    <main>
+        <div class = "content">
+            <% if(events.length) { %>
+                <h1>Select to view a meetup</h1>
+                <%events.forEach(event=>{ %>
+                    <a href = "/events/<%= event.id%>"> <p><%= event.name %></p></a>
+                <%});
+            } else { %>
+                <p>No events found!</p>
+                <%console.log("NO EVENTS")%>
+            <%}%>
+        </div>
+    </main>
 
-    <div class = "content">
-        <% if(events.length) { %>
-            <h1>Select to view a meetup</h1>
-            <%events.forEach(event=>{ %>
-                <a href = "/events/<%= event.id%>"> <p><%= event.name %></p></a>
-            <%});
-        } else { %>
-            <p>No events found!</p>
-            <%console.log("NO EVENTS")%>
-        <%}%>
-    </div>
 <%- include('../partials/footer.ejs')%>
-
-
-
-        <!-- <main> -->
-            <!-- <br> -->
-            <!-- <h1>Tournaments:</h1>  -->
-            <!-- <img src="Images/pokemon.png" alt="Pokemon X & Y Cover Image" class="images-meetups-left "> -->
-            <!-- <p><a href="plannedMeetup1.html">Super Smash Bros Tournament</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">Rocket League Tournament</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">Pokemon X&Y Tournament</a></p> -->
-        
-            <!-- <br> -->
-            
-            <!-- <h1>Party Games:</h1> -->
-            <!-- <img src="Images/marioparty.png" alt="Mario Party Cover Image" class="images-meetups-right "> -->
-            <!-- <p><a href="plannedMeetup1.html">Jackbox Games</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">Super Mario Party</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">Just Dance 2024</a></p> -->
-        
-            <!-- <br> -->
-        
-            <!-- <h1>Cozy Game Hangouts:</h1> -->
-            <!-- <p><a href="plannedMeetup1.html">August Cozy Games Hangout</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">September Cozy Games Hangout</a></p> -->
-            <!-- <p><a href="plannedMeetup1.html">November Cozy Games Hangout</a></p> -->
-        <!-- </main> -->
-
-

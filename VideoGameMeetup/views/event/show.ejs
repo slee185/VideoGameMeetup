@@ -1,12 +1,14 @@
 <%- include('../partials/header.ejs') %>
+  <main>
     <div class="display-meetups">
-            <br><br>
             <h3><%=event.name%></h3>
             <small>Posted <%=event.createdAt%> by <%=event.host%></small>
-            <div id = "event"><%=event.game%></div>
+            <br>
+            <!-- <div id = "event"><%=event.game%></div> -->
 
             <div class="meetup-info">
                 <div class="info-labels">
+                  <p>Game:</p><br>
                   <p>Host:</p><br>
                   <p>Date:</p><br>
                   <p>Time:</p><br>
@@ -16,6 +18,7 @@
                 </div>
     
                 <div class="info-answers">
+                  <p><%=event.game%></p><br>
                   <p><%=event.host%></p><br>
                   <p><%=event.date%></p><br>
                   <p><%=event.startTime%> - <%=event.endTime%></p><br>
@@ -25,16 +28,11 @@
                 </div>
             </div>
 
-
             <form>
                 <br>
-                <!--
-                <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit">Edit</button>
-                <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE">Delete</button> -->
-
                 <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit"><img src = "/images/edit_icon.png" alt="Edit Button"></button>
                 <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE"><img src = "/images/trash_icon.png" alt="Trash Button"></button>
             </form>
     </div>
-
-    <%- include('../partials/footer.ejs')%>
+  </main>
+<%- include('../partials/footer.ejs')%>
