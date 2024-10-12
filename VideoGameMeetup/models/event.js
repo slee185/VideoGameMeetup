@@ -77,6 +77,21 @@ const events = [
         endTime: '5:00pm',
         imageFlyer: '/images/animalCrossing.jpg',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+    },
+    {
+        id: '6',
+        type: 'free-play',
+        name: 'Animal Crossing Furniture Trade',
+        game: 'Animal Crossing',
+        platform: 'Nintendo Switch',
+        host: 'Jacob Niner',
+        details: 'Fun night playing Animal Crossing and trading furniture!. Come stop by and participate or watch all the action!',
+        location: 'Woodward Hall 2nd Floor lounge',
+        date: '10/25/2024',
+        startTime: '2:00pm',
+        endTime: '5:00pm',
+        imageFlyer: '/images/animalCrossing.jpg',
+        createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     }
 ];
 
