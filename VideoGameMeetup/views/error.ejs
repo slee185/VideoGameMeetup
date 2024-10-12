@@ -1,7 +1,11 @@
 <%- include('./partials/header.ejs') %>
-    <%if(error) {%>
-        <p><%=error.status%></p>
-        <p><%=error.message%></p>
-    <% }%>
+    <main>
+        <%if(error) {%>
+            <h1>ERROR: <%=error.status%></h1>
+            <h3><%=error.message%></h3>
+            <%console.log("ERROR");%>
+        <% }%>
+    </main>
+
 
 <%- include('./partials/footer.ejs') %>

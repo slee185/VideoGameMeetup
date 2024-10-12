@@ -25,7 +25,7 @@ app.get('/', (req, res)=> {
 });
 
 // Mount Rount
-app.use('/events', eventRoutes);
+app.use('/events', eventRoutes); 
 
 app.use((req, res, next) => {
     let err = new Error('Server cannot locate ' + req.url);

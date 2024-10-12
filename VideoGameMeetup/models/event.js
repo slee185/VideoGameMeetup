@@ -35,7 +35,7 @@ const events = [
     },
     {
         id: '3',
-        type: 'Tournament',
+        type: 'tournament',
         name: 'Pokemon X&Y Tournament',
         game: 'Pokemon X&Y',
         platform: 'Nintendo DS',
@@ -50,8 +50,8 @@ const events = [
     },
     {
         id: '4',
-        type: 'Tournament',
-        name: 'IDK Tournament',
+        type: 'free-play',
+        name: 'IDK Game',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
         host: 'Jacob Niner',
@@ -72,13 +72,6 @@ exports.findById = id => events.find(event=>event.id === id);
 exports.save = function(event) {
     event.id = uuidv4();
     event.createdAt = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
-
-  // Ensure date, startTime, and endTime are set
-    event.date = event.date || ""; 
-    event.startTime = event.startTime || ""; 
-    event.endTime = event.endTime || ""; 
-
-
     events.push(event);
 }
 
@@ -92,16 +85,9 @@ exports.updateById = function(id, newEvent) {
         event.host = newEvent.host;
         event.details = newEvent.details;
         event.location = newEvent.location;
-        /*
         event.date = newEvent.date;
         event.startTime = newEvent.startTime;
         event.endTime = newEvent.endTime;
-        */
-
-        event.date = newEvent.when || newEvent.date;
-        event.startTime = newEvent.startTime;
-        event.endTime = newEvent.endTime;
-
         event.imageFlyer = newEvent.imageFlyer;
         return true;
     } else {

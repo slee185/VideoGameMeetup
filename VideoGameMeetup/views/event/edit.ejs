@@ -2,7 +2,7 @@
   <main>
     <h1>Edit <%= event.name%> <br> </h1>
 
-      <form method = "POST" action = "/events/<%= event.id%>?_method=PUT" class="form">
+      <form method= "POST" action = "/events/<%= event.id%>?_method=PUT" class="form">
         <div class="form-info"> 
           <div class="form-labels">
             <label for="name" ><b>Name:</b></label> <br><br>
@@ -19,7 +19,7 @@
           </div>
 
           <div class="form-answers">
-            <input type="text" id="name" name="name" value="<%= event.name%>" class="input-field" required> <!--title-->
+            <input type="text" id="name" name="name" value="<%= event.name%>" class="input-field" required> 
             <input type="text" id="game" name="game" value="<%= event.game%>" class="input-field" required>
             <select id="category" name="type" class="select.input-field" required>
               <option value="tournament" <%= event.type === 'tournament' ? 'selected' : '' %>>Tournament</option>
