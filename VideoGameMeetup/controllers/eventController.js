@@ -10,10 +10,10 @@ exports.new = (req, res)=> {
 }
 
 exports.create = (req, res) => {
-    console.log('Received body:', req.body); // Check what is being sent
+    console.log('Received body:', req.body); 
     let event = req.body;
     model.save(event);
-    console.log(model.find());  // Check if event is added
+    console.log(model.find()); 
     res.redirect('/events');
    
 };

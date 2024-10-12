@@ -1,17 +1,37 @@
 <%- include('../partials/header.ejs') %>
 
-    <main>
-        <div class = "content">
-            <% if(events.length) { %>
-                <h1>Select to view a meetup</h1>
-                <%events.forEach(event=>{ %>
-                    <a href = "/events/<%= event.id%>"> <p><%= event.name %></p></a>
-                <%});
-            } else { %>
-                <p>No events found!</p>
-                <%console.log("NO EVENTS")%>
-            <%}%>
-        </div>
-    </main>
+<main>
+    <div class="content">
+        <% if(events.length) { %>
+            <h1>Select a meetup to view</h1>
+
+            <br><br>
+            <h2>Tournaments:</h2>
+            <% events.forEach(event => { %>
+                <% if(event.type && (event.type === 'tournament') || event.type === 'Tournament') { %>
+                    <a href="/events/<%= event.id %>">
+                        <p><%= event.name %>%></p>
+                    </a>
+                <% } %>
+            <% }); %>
+
+            <br><br>
+            <h2>Free Play:</h2>
+            <% events.forEach(event => { %>
+                <% if(event.type && (event.type === 'free-play' || event.type === 'Free-Play')) { %>
+                    <a href="/events/<%= event.id %>">
+                        <p><%= event.name %></p>
+                    </a>
+                <% } %>
+            <% }); %>
+
+
+        <% } else { %>
+            <p>No events found!</p>
+            <% console.log("NO EVENTS") %>
+        <% } %>
+    
+    </div>
+</main>
 
 <%- include('../partials/footer.ejs')%>

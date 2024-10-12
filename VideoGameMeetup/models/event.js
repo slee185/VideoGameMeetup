@@ -4,7 +4,7 @@ const {v4: uuidv4} = require('uuid');
 const events = [
     {
         id: '1',
-        type: 'Tournament',
+        type: 'tournament',
         name: 'Super Smash Tournament',
         game: 'Super Smash Bros',
         platform: 'Nintendo Switch',
