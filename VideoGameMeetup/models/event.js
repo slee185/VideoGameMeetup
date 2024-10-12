@@ -35,7 +35,7 @@ const events = [
     },
     {
         id: '3',
-        type: 'tournament',
+        type: 'Tournament',
         name: 'Pokemon X&Y Tournament',
         game: 'Pokemon X&Y',
         platform: 'Nintendo DS',
@@ -61,6 +61,21 @@ const events = [
         startTime: '2:00pm',
         endTime: '5:00pm',
         imageFlyer: '/images/jackbox-five.png',
+        createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+    },
+    {
+        id: '4',
+        type: 'free-play',
+        name: 'Animal Crossing Night',
+        game: 'Animal Crossing',
+        platform: 'Nintendo Switch',
+        host: 'Jacob Niner',
+        details: 'Fun night playing Animal Crossing!. Come stop by and participate or watch all the action!',
+        location: 'Woodward Hall 2nd Floor lounge',
+        date: '10/25/2024',
+        startTime: '2:00pm',
+        endTime: '5:00pm',
+        imageFlyer: '/images/animalCrossing.jpg',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     }
 ];
