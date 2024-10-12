@@ -24,6 +24,7 @@ exports.show = (req, res, next) => {
     let event = model.findById(id);
     if (event) {
         res.render('./event/show', {event});
+        console.log('event.imageFlyer.src');
     } else {
         let err = new Error('No valid event with id ' + id);
         err.status = 404;

@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const eventRoutes = require('./routes/eventRoutes');
 const {fileUpload} = require('./middleware/fileUpload');
+const path = require('path');
+
 
 // Create App
 const app = express();
@@ -15,6 +17,7 @@ app.set('view engine', 'ejs');
 
 // Mount Middleware
 app.use(express.static('public'));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
 app.use(methodOverride('_method'));

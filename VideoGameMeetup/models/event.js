@@ -14,23 +14,23 @@ const events = [
         date: '10/25/2024',
         startTime: '2:00pm',
         endTime: '5:00pm',
-        imageFlyer: '',
+        imageFlyer: '/images/smashbros.webp',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
 
     },
     {
         id: '2',
         type: 'Tournament',
-        name: 'Rocket League Tournament',
-        game: 'Rocket League',
-        platform: 'PC',
+        name: 'Mario Party Tournament',
+        game: 'Mario Party',
+        platform: 'Nintendo Switch',
         host: 'Jacob Niner',
-        details: 'Fun Rocket League tournament for all skill levels. Come stop by and participate or watch all the action!',
+        details: 'Fun Mario Party tournament for all skill levels. Come stop by and participate or watch all the action!',
         location: 'Woodward Hall 2nd Floor lounge',
         date: '11/1/2024',
         startTime: '4:00pm',
         endTime: '7:00pm',
-        imageFlyer: '',
+        imageFlyer: '/images/marioparty.png',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     },
     {
@@ -45,22 +45,22 @@ const events = [
         date: '10/19/2024',
         startTime: '9:00am',
         endTime: '12:00pm',
-        imageFlyer: '',
+        imageFlyer: '/images/pokemon.png',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     },
     {
         id: '4',
         type: 'free-play',
-        name: 'IDK Game',
-        game: 'Super Smash Bros',
-        platform: 'Nintendo Switch',
+        name: 'Party Game Night',
+        game: 'Jackbox',
+        platform: 'Mobile',
         host: 'Jacob Niner',
-        details: 'Fun Super Smash Bros tournament for all skill levels. Come stop by and participate or watch all the action!',
+        details: 'Fun night playing Jackbox games!. Come stop by and participate or watch all the action!',
         location: 'Woodward Hall 2nd Floor lounge',
         date: '10/25/2024',
         startTime: '2:00pm',
         endTime: '5:00pm',
-        imageFlyer: '',
+        imageFlyer: '/images/jackbox-five.png',
         createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
     }
 ];
