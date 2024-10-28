@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
 const eventRoutes = require('./routes/eventRoutes');
 const {fileUpload} = require('./middleware/fileUpload');
 const path = require('path');
@@ -14,6 +15,17 @@ const app = express();
 let port = 3000;
 let host = 'localhost';
 app.set('view engine', 'ejs');
+const mongoUrl = 'mongodb+srv://JacobMiller:Jm32859299@cluster0.yv4lp.mongodb.net/VideoGameMeetup?retryWrites=true&w=majority&appName=Cluster0';
+
+
+mongoose.connect(mongoUrl)
+.then(()=>{  
+    app.listen(port, host, ()=>{
+    console.log('Server is running on port', port);
+});
+})
+.catch(err=>console.log(err.message));
+//console.log(err);
 
 // Mount Middleware
 app.use(express.static('public'));
@@ -52,7 +64,9 @@ app.post('/events', fileUpload, (req, res, next) => {
     console.log('file has been submitted ', req.file, req.body);
 });
 
+/*
 // Start the Server
 app.listen(port, host, ()=> {
     console.log('Server is running on port', port);
 });
+*/

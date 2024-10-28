@@ -1,3 +1,29 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+
+const eventSchema = new Schema({
+   // id: {type: String, required: [true, 'id is required']},
+    type: {type: String, required: [true, 'type is required']},
+    name: {type: String, required: [true, 'name is required']},
+    game: {type: String, required: [true, 'game is required']},
+    platform: {type: String, required: [true, 'platform is required']},
+    host: {type: String, required: [true, 'host is required']},
+    details: {type: String, required: [true, 'details is required']},
+    location: {type: String, required: [true, 'location is required']},
+    date: {type: String, required: [true, 'date is required']},
+    startTime: {type: String, required: [true, 'startTime is required']},
+    endTime: {type: String, required: [true, 'endTime is required']},
+    imageFlyer: {type: String, required: [false, 'imageFlyer is not required']}
+
+},
+{timestamps: true}
+);
+
+module.exports = mongoose.model('Event', eventSchema);
+
+
+/*
 const { DateTime } = require("luxon");
 const {v4: uuidv4} = require('uuid');
 
@@ -133,3 +159,5 @@ exports.deleteById = function(id) {
         return false;
     }
 }
+
+*/
