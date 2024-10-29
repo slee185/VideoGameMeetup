@@ -73,6 +73,10 @@ exports.update = (req, res, next)=>{
         return next(err);
     }
 
+    if (req.file) { // TEST 
+        event.image = "/images/" + req.file.filename;
+    }
+
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
     .then(event=>{
         if(event){
