@@ -11,7 +11,9 @@ exports.new = (req, res)=> {
 }
 
 exports.create = (req, res, next) => {
+    let image = "/images/" + req.file.filename;
     let event = new model(req.body); 
+    event.image = image;
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{

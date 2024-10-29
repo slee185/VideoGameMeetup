@@ -33,7 +33,6 @@ exports.fileUpload = (req, res, next) => {
             err.status = 400;
             next(err);
           } else {
-            console.log('picture uploaded');
             next();
           }  
     });
