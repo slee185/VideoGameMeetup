@@ -27,7 +27,7 @@ mongoose.connect(mongoUrl)
 ``
 // Mount Middleware
 app.use(express.static('public'));
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+// app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use(express.urlencoded({extended: true}));
 app.use(morgan('tiny'));
 app.use(methodOverride('_method'));
