@@ -10,7 +10,6 @@
             <h3><%=event.name%></h3>
             <small>Posted <%=event.createdAt%> by <%=event.host%></small>
             <br>
-            <!-- <div id = "event"><%=event.game%></div> -->
 
             <div class="meetup-info">
                 <div class="info-labels">
@@ -39,7 +38,6 @@
 
     <div class='pictures'>
       <img src="<%= event.imageFlyer %>" alt="Event Flyer">
-      <!-- <img src="<%= typeof image !== 'undefined'? image: ''%>" style="width: 25%"> -->
     </div>
   </main>
 <%- include('../partials/footer.ejs')%>

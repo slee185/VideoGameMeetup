@@ -29,6 +29,7 @@ const upload = multer({
 
 exports.fileUpload = (req, res, next) => {
     upload(req, res, err => {
+      console.log('Multer upload');
         if (err) {
             err.status = 400;
             next(err);

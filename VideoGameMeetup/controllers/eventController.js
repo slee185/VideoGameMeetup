@@ -11,9 +11,7 @@ exports.new = (req, res)=> {
 }
 
 exports.create = (req, res, next) => {
-    let image = "/images/" + req.file.filename;
     let event = new model(req.body); 
-    event.image = image;
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{
@@ -73,10 +71,6 @@ exports.update = (req, res, next)=>{
         let err = new Error('Invalid event id');
         err.status = 400;
         return next(err);
-    }
-
-    if (req.file) { // TEST 
-        event.image = "/images/" + req.file.filename;
     }
 
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
