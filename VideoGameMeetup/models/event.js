@@ -4,10 +4,18 @@ const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
    // id: {type: String, required: [true, 'id is required']},
-    type: {type: String, required: [true, 'type is required']},
+    type: {
+        type: String, 
+        required: [true, 'type is required'],
+        enum: ['nintendo switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
+    },
     name: {type: String, required: [true, 'name is required']},
     game: {type: String, required: [true, 'game is required']},
-    platform: {type: String, required: [true, 'platform is required']},
+    platform: {
+        type: String,
+        required: [true, 'platform is required'],
+        enum: ['tournament', 'free-play']
+    },
     host: {type: String, required: [true, 'host is required']},
     details: {type: String, required: [true, 'details is required']},
     location: {type: String, required: [true, 'location is required']},
@@ -15,13 +23,11 @@ const eventSchema = new Schema({
     startTime: {type: String, required: [true, 'startTime is required']},
     endTime: {type: String, required: [true, 'endTime is required']},
     imageFlyer: {type: String, required: [false, 'imageFlyer is not required']}
-
 },
 {timestamps: true}
 );
 
 module.exports = mongoose.model('Event', eventSchema);
-
 
 /*
 const { DateTime } = require("luxon");

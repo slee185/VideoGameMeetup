@@ -39,7 +39,7 @@ app.get('/', (req, res)=> {
     res.render('index');
 });
 
-// Mount Rount
+// Mount Routes
 app.use('/events', eventRoutes); 
 
 app.use((req, res, next) => {
