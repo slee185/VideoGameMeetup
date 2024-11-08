@@ -35,15 +35,16 @@
         <a href='/events'>Meetups</a>
     </nav>
   </header>
+  <main>
+    <%if(errorMessages.length > 0) {
+        errorMessages.forEach(message=> {%>
+            <div class="error"><%= message%></div>
+        <%});
+    }%>
+    
+    <%if(successMessages.length > 0) {
+        successMessages.forEach(message=> {%>
+            <div class="success"> <%= message%></div>
+        <%});
+    }%>
 
-<%if(errorMessages.length > 0) {
-    errorMessages.forEach(message=> {%>
-        <div class="error"><%= message%></div>
-    <%});
-}%>
-
-<%if(successMessages.length > 0) {
-    successMessages.forEach(message=> {%>
-        <div class="success"> <%= message%></div>
-    <%});
-}%>

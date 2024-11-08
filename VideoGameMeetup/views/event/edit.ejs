@@ -1,5 +1,4 @@
 <%- include('../partials/header.ejs') %>
-  <main>
     <h1>Edit <%= event.name%> <br> </h1>
 
       <form method= "POST" action = "/events/<%= event.id%>?_method=PUT" class="form">
