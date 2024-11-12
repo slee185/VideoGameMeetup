@@ -1,15 +1,17 @@
 const express = require('express');
 const controller = require('../controllers/eventController');
+const {isLoggedIn} = require('../middleware/auth');
+
 const router = express.Router();
 
 // GET: Send all events to user
 router.get('/',controller.index);
 
 // GET: Send html form for creating new event
-router.get('/new', controller.new);
+router.get('/new', isLoggedIn, controller.new);
 
 // POST: Create a new event
-router.post('/', controller.create);
+router.post('/', isLoggedIn, controller.create);
 
 // GET: Send details of event identified by id
 router.get('/:id', controller.show); 
