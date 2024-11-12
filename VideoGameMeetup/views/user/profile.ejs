@@ -1,6 +1,16 @@
 <%- include('../partials/header.ejs')%>
 
-    <h2>Welcome, <%= user.firstName + " " + user.lastName%></h2>
+    <h2>Welcome, <%= user.firstName + " " + user.lastName%>!</h2><br>
+
+    <%if(events.length) {%>
+        <p>Your events:</p>
+        <%events.forEach(story => {%>
+            <a href = '/events/<%= event.id%>'><p><%=event.name%></p></a>
+        <%});
+    } else {%>
+        <p>You have not created any events yet!</p>
+    <%}%>
+
     </div>
 </main>
 <%- include('../partials/footer.ejs')%>

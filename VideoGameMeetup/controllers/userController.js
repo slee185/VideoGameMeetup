@@ -1,4 +1,6 @@
 const model = require('../models/user');
+const Event = require('../models/event');
+
 
 exports.index = (req, res, next)=>{
     //res.send('send all users');
@@ -13,8 +15,11 @@ exports.new = (req, res)=>{
 
 exports.profile = (req, res)=>{
     let id = req.session.user;
-    model.findById(id)
-    .then(user=>res.render('user/profile', {user}))
+    Promise.all([model.findById(id), Event.find({host: id})])
+    .then(results=>{
+        const [user, events] = results;
+        res.render('user/profile', {user, events});
+    })
     .catch(err=>next(err));
 };
 

@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 
 const eventSchema = new Schema({
-   // id: {type: String, required: [true, 'id is required']},
     type: {
         type: String, 
         required: [true, 'type is required'],
