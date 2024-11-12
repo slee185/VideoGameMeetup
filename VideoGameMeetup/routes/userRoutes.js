@@ -1,32 +1,25 @@
 const express = require('express');
 const controller = require('../controllers/userController');
+const {isGuest} = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/', controller.index);
+//GET /users/new: send html form for creating a new user account
+router.get('/new', isGuest, controller.new);
 
-//GET /users/new: send html form for creating a new user
-router.get('/new', controller.new);
+//POST /users: create a new user account
+router.post('/', isGuest, controller.create);
 
-//GET profile
+//GET /users/login: send html for logging in
+router.get('/login', isGuest, controller.getUserLogin);
+
+//POST /users/login: authenticate user's login
+router.post('/login', isGuest, controller.login);
+
+//GET /users/profile: send user's profile page
 router.get('/profile', controller.profile);
 
-//POST /users: create a new user
-router.post('/', controller.create);
-
-// GET login submission
-router.get('/login', controller.login);
-
-// GET logout request
+//POST /users/logout: logout a user
 router.get('/logout', controller.logout);
-
-//GET /users/:id/edit: send html form for editing an exising user
-router.get('/:id/edit', controller.edit);
-
-//PUT /users/:id: update the user identified by id
-router.put('/:id', controller.update);
-
-//DELETE /users/:id, delete the user identified by id
-router.delete('/:id', controller.delete);
 
 module.exports = router;
