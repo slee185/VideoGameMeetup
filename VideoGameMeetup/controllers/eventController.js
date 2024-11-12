@@ -11,7 +11,8 @@ exports.new = (req, res)=> {
 }
 
 exports.create = (req, res, next) => {
-    let event = new model(req.body); 
+    let event = new model(req.body);
+    event.host = req.session.user;
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{
@@ -30,7 +31,7 @@ exports.show = (req, res, next) => {
         err.status = 400;
         return next(err);
     }
-    model.findById(id)
+    model.findById(id).populate('host', 'firstName lastName')
     .then(event=>{
         if(event) {
             return res.render('./event/show', {event});

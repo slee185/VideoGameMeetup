@@ -16,7 +16,7 @@ const eventSchema = new Schema({
         required: [true, 'platform is required'],
         enum: ['tournament', 'free-play']
     },
-    host: {type: String, required: [true, 'host is required']},
+    host: {type: Schema.Types.ObjectId, ref:'User'},
     details: {type: String, required: [true, 'details is required']},
     location: {type: String, required: [true, 'location is required']},
     date: {type: String, required: [true, 'date is required']},
