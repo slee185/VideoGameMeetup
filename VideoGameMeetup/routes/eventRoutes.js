@@ -1,6 +1,6 @@
 const express = require('express');
 const controller = require('../controllers/eventController');
-const {isLoggedIn} = require('../middleware/auth');
+const {isLoggedIn, isHost} = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -17,12 +17,12 @@ router.post('/', isLoggedIn, controller.create);
 router.get('/:id', controller.show); 
 
 // GET: Send html form for editing an existing event
-router.get('/:id/edit', controller.edit); 
+router.get('/:id/edit', isLoggedIn, isHost, controller.edit); 
 
 // PUT: Update the event identified by id
-router.put('/:id', controller.update);
+router.put('/:id', isLoggedIn, isHost, controller.update);
 
 // DELETE: Delete the event identified by id
-router.delete('/:id', controller.delete);
+router.delete('/:id', isLoggedIn, isHost, controller.delete);
 
 module.exports = router;
