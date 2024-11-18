@@ -61,16 +61,18 @@ exports.update = (req, res, next)=>{
     let id = req.params.id;
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
     .then(event=>{
-       if(event){
-            res.redirect('/events/'+id); 
+    //    if(event){
+    //         res.redirect('/events/'+id); 
 
-            } else {
-                let err = new Error('Cannot find an event with id ' + id);
-                err.status = 404;
-                next(err);
+    //         } else {
+    //             let err = new Error('Cannot find an event with id ' + id);
+    //             err.status = 404;
+    //             next(err);
 
-            }
-    })
+    //         }
+    // })
+        res.redirect('/events/'+id);
+    }) 
     .catch(err=>{
         if(err.name === 'ValidationError') {
             err.status = 400;

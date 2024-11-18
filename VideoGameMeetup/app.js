@@ -65,6 +65,7 @@ app.use('/events', eventRoutes);
 app.use('/users', userRoutes);
 
 
+/*
 
 //get signup form
 app.get('/new', (req, res)=>{
@@ -141,6 +142,7 @@ app.post('/events', fileUpload, (req, res, next) => {
     res.render('index', {image});
     console.log('file has been submitted ', req.file, req.body);
 });
+*/
 
 app.use((req, res, next) => {
     let err = new Error('Server cannot locate ' + req.url);

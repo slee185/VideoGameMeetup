@@ -1,14 +1,16 @@
 <%- include('../partials/header.ejs') %>
-
+  <%if (user == event.host._id) { %>
     <form>
       <br>
       <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit"><img src = "/images/edit_icon.png" alt="Edit Button"></button>
       <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE"><img src = "/images/trash_icon.png" alt="Trash Button"></button>
   </form>
+  <%}%>
+
     <div class="display-meetups">
 
             <h3><%=event.name%></h3>
-            <small>Posted <%=event.createdAt%> by <%=event.host%></small>
+            <small>Posted <%= event.createdAt%> by <%= event.host.firstName + ' ' + event.host.lastName%></small>
             <br>
 
             <div class="meetup-info">
