@@ -7,7 +7,7 @@ const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const flash = require('connect-flash');
 const eventRoutes = require('./routes/eventRoutes');
-const {fileUpload} = require('./middleware/fileUpload');
+const {fileUpload} = require('./middlewares/fileUpload');
 const path = require('path');
 const User = require('./models/user');
 const userRoutes = require('./routes/userRoutes');
@@ -64,6 +64,8 @@ app.get('/', (req, res)=> {
 app.use('/events', eventRoutes); 
 app.use('/users', userRoutes);
 
+
+
 //get signup form
 app.get('/new', (req, res)=>{
     res.render('new');
@@ -108,7 +110,8 @@ app.post('/login', (req, res, next)=>{
                 if(result) {
                     req.session.user = user._id; //store user's id in session
                     req.flash('success', 'You have successfully logged in!');
-                    res.redirect('/profile');
+                   // res.redirect('/profile');
+                   res.redirect('/users/profile');
                 } else {
                     // console.log('wrong password');
                     req.flash('error', 'Wrong password!');

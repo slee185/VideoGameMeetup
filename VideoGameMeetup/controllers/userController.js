@@ -62,6 +62,8 @@ exports.profile = (req, res, next)=>{
         const [user, events] = results;
         console.log("User:", user.firstName);
         res.render('user/profile', {user, events});
+       // res.render('./user/profile', {user, events}); // TEST
+       //res.render('./user/profile', { user: req.session.user, events: events });
     })
     .catch(err=>next(err));
 };

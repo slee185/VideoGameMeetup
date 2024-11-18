@@ -6,14 +6,16 @@ const eventSchema = new Schema({
     type: {
         type: String, 
         required: [true, 'type is required'],
-        enum: ['nintendo switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
+        //enum: ['nintendo-switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
+        enum: ['tournament', 'free-play']
     },
     name: {type: String, required: [true, 'name is required']},
     game: {type: String, required: [true, 'game is required']},
     platform: {
         type: String,
         required: [true, 'platform is required'],
-        enum: ['tournament', 'free-play']
+       // enum: ['tournament', 'free-play']
+       enum: ['nintendo-switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
     },
     host: {type: Schema.Types.ObjectId, ref:'User'},
     details: {type: String, required: [true, 'details is required']},
