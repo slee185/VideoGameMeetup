@@ -22,10 +22,13 @@
         </div>
         <nav>
             <a href='/events/new'>New Meetup</a>
-            <a href="/users/login">Log In</a>
-            <a href="/users/new">Sign Up</a>
-            <a href='/users/profile'>Profile</a>
-            <a href='/users/logout'>Logout</a>
+            <%if (!user) {%>
+                <a href="/users/login">Log In</a>
+                <a href="/users/new">Sign Up</a>
+            <%} else {%>
+                <a href='/users/profile'>Profile</a>
+                <a href='/users/logout'>Logout</a>
+            <%}%>
         </nav>
     </div>
   </header>

@@ -4,7 +4,7 @@
 
     <%if(events.length) {%>
         <p>Your events:</p>
-        <%events.forEach(story => {%>
+        <%events.forEach(event => {%>
             <a href = '/events/<%= event.id%>'><p><%=event.name%></p></a>
         <%});
     } else {%>
