@@ -2,7 +2,7 @@
 
         <h1>Create a Gaming Meetup <br> </h1>
             
-        <form action= '/events' method='POST' class="form">
+        <form action= '/events' method='POST' class="form" enctype='multipart/form-data'>
             <div class="form-info">
                 <div class="form-labels">
                     <label for="name" ><b>Name:</b></label> <br><br>
@@ -15,7 +15,7 @@
                     <label for="date"><b>Date:</b></label><br><br>
                     <label for="startTime"><b>Start Time:</b></label><br><br>
                     <label for="endTime"><b>End Time:</b></label><br><br>
-                    <label for="file_extension"><b>Add Flyer:</b></label><br><br>
+                    <label for="image"><b>Add Flyer:</b></label><br><br>
                 </div>
 
                 <div class="form-answers">
@@ -41,7 +41,7 @@
                     <input type="date" id="date" name="date" class="input-field" required>
                     <input type="time" id="startTime" name="startTime"  class="input-field" required> 
                     <input type="time" id="endTime" name="endTime" class="input-field" required>
-                    <input id="file_extension" name="file_extension" type="file" accept="file_extension/*">
+                    <input id="image" name="image" type="file" accept="image/">
                     <input type="submit" value="submit"> <br><br>
                 </div>
             </div>

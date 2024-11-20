@@ -13,6 +13,7 @@ exports.new = (req, res)=> {
 exports.create = (req, res, next) => {
     let event = new model(req.body);
     event.host = req.session.user;
+    event.imageFlyer = "/images/" + req.file.filename;
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{
@@ -29,6 +30,7 @@ exports.show = (req, res, next) => {
     model.findById(id).populate('host', 'firstName lastName')
     .then(event=>{
         if(event) {
+            console.log(event);
             return res.render('./event/show', {event});
         } else {
             let err = new Error('Cannot find an event with id ' + id);
