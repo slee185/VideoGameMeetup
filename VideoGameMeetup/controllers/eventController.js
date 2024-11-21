@@ -45,15 +45,7 @@ exports.edit = (req, res, next)=>{
     let id = req.params.id;
     model.findById(id)
     .then(event=>{
-        //if(event) {
         return res.render('./event/edit', {event});
-           /*
-        } else {
-            let err = new Error('Cannot find an event with id ' + id);
-            err.status = 404;
-            next(err);
-        }
-            */
     })
     .catch(err=>next(err));
 };
@@ -63,16 +55,6 @@ exports.update = (req, res, next)=>{
     let id = req.params.id;
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
     .then(event=>{
-    //    if(event){
-    //         res.redirect('/events/'+id); 
-
-    //         } else {
-    //             let err = new Error('Cannot find an event with id ' + id);
-    //             err.status = 404;
-    //             next(err);
-
-    //         }
-    // })
         res.redirect('/events/'+id);
     }) 
     .catch(err=>{
@@ -87,15 +69,7 @@ exports.delete = (req, res, next)=>{
     let id = req.params.id;
     model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(event=>{
-        //if(event) {
         res.redirect('/events');
-            /*
-        } else {
-            let err = new Error('Cannot find an event with id ' + id);
-            err.status = 404;
-            next(err); 
-        }
-            */
     })
     .catch(err=> next(err));
 };

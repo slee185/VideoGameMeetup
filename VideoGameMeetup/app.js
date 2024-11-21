@@ -49,7 +49,7 @@ app.use(flash());
 
 app.use((req, res, next)=>{
     console.log(req.session);
-    res.locals.user = req.session.user||null; // fix?
+    res.locals.user = req.session.user||null; // TEST
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
     next();
@@ -63,86 +63,6 @@ app.get('/', (req, res)=> {
 // Mount Routes
 app.use('/events', eventRoutes); 
 app.use('/users', userRoutes);
-
-
-/*
-
-//get signup form
-app.get('/new', (req, res)=>{
-    res.render('new');
-});
-
-//create a new user
-app.post('/', (req, res, next)=>{
-    let user = new User(req.body);
-    user.save()
-    .then(()=>res.redirect('/login'))
-    .catch(err=>{
-        if(err.name === 'ValidationError') {
-            req.flash('error', err.message);
-            return res.redirect('/new');
-        }
-        if(err.code === 11000) {
-            req.flash('error', 'Email address has been used');
-            return res.redirect('/new');
-        }
-        next(err)
-    });
-});
-
-//get login page
-app.get('/login', (req, res)=>{
-    res.render('login');
-});
-
-//process login request
-app.post('/login', (req, res, next)=>{
-    //authenticate user's login request
-    let email = req.body.email;
-    let password = req.body.password;
-
-    //get user that matches email
-    User.findOne({email: email})
-    .then(user=>{
-        if(user) {
-            //user found in database
-            user.comparePassword(password)
-            .then(result=>{
-                if(result) {
-                    req.session.user = user._id; //store user's id in session
-                    req.flash('success', 'You have successfully logged in!');
-                   // res.redirect('/profile');
-                   res.redirect('/users/profile');
-                } else {
-                    // console.log('wrong password');
-                    req.flash('error', 'Wrong password!');
-                    res.redirect('users/login');
-                }
-            })
-            .catch(err=>next(err));
-        } else {
-            // console.log('wrong email address');
-            req.flash('error', 'Wrong email address!');
-            res.redirect('users/login');
-        }
-    })
-    .catch(err=>next(err));
-});
-
-//get profile
-app.get('/profile', (req, res, next)=>{
-    let id = req.session.user;
-    User.findById(id)
-    .then(user=>res.render('user/profile', {user}))
-    .catch(err=>next(err));
-});
-
-app.post('/events', fileUpload, (req, res, next) => {
-    let image = "./public/images/" + req.file.filename;
-    res.render('index', {image});
-    console.log('file has been submitted ', req.file, req.body);
-});
-*/
 
 app.use((req, res, next) => {
     let err = new Error('Server cannot locate ' + req.url);

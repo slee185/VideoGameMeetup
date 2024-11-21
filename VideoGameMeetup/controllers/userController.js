@@ -63,7 +63,6 @@ exports.profile = (req, res, next)=>{
         console.log("User:", user.firstName);
         console.log("Events:", events);  // Check that events are showing
         res.render('user/profile', {user, events});
-       // res.render('./user/profile', {user, events}); // TEST
     })
     .catch(err=>next(err));
 };
