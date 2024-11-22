@@ -47,9 +47,18 @@ app.use(session({
 
 app.use(flash());
 
-app.use((req, res, next)=>{
-    console.log(req.session);
-    res.locals.user = req.session.user||null; // TEST
+app.use(async (req, res, next) => {
+    if (req.session.user) {
+        try {
+            const user = await User.findById(req.session.user).lean();
+            res.locals.user = user || null;
+        } catch (error) {
+            console.error('Error fetching user in middleware:', error);
+            res.locals.user = null;
+        }
+    } else {
+        res.locals.user = null;
+    }
     res.locals.successMessages = req.flash('success');
     res.locals.errorMessages = req.flash('error');
     next();

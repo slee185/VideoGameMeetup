@@ -1,3 +1,4 @@
+const {validationResult} = require('express-validator');
 const model = require('../models/event');
 
 exports.index = (req, res, next) => {
@@ -24,12 +25,63 @@ exports.create = (req, res, next) => {
     });
 };
 
-
 exports.show = (req, res, next) => {
     let id = req.params.id;
     model.findById(id).populate('host', 'firstName lastName')
     .then(event=>{
         if(event) {
+            // format category
+            const formatCategory = (type) => {
+                return type
+                    .split('-') 
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            };
+            // format platform
+            const formatPlatform = (platform) => {
+                return platform
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            };
+            // format times
+            const formatTime = (time) => {
+                const [hours, minutes] = time.split(':');
+                const date = new Date();
+                date.setHours(hours, minutes);
+                return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            }
+            // format date
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+            
+                const daySuffix = (day) => {
+                    if (day > 3 && day < 21) return 'th'; // 11th - 20th
+                    switch (day % 10) {
+                        case 1: return 'st';
+                        case 2: return 'nd';
+                        case 3: return 'rd';
+                        default: return 'th';
+                    }
+                };
+            
+                const day = date.getDate();
+                const dayWithSuffix = `${day}${daySuffix(day)}`;
+            
+                const options = { weekday: 'long', month: 'long', year: 'numeric' };
+                const formattedDateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
+                const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
+                const month = formattedDateParts.find(part => part.type === 'month').value;
+                const year = formattedDateParts.find(part => part.type === 'year').value;
+            
+                return `${weekday} ${month} ${dayWithSuffix}, ${year}`;
+            };
+            event.formattedCategory = formatCategory(event.type);
+            event.formattedPlatform = formatPlatform(event.platform);
+            event.formattedStartTime = formatTime(event.startTime);
+            event.formattedEndTime = formatTime(event.endTime);
+            event.formattedDate = formatDate(event.date);
+
             console.log(event);
             return res.render('./event/show', {event});
         } else {
@@ -55,6 +107,7 @@ exports.update = (req, res, next)=>{
     let id = req.params.id;
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
     .then(event=>{
+        req.flash('success', 'Event successfully updated');
         res.redirect('/events/'+id);
     }) 
     .catch(err=>{
@@ -69,6 +122,7 @@ exports.delete = (req, res, next)=>{
     let id = req.params.id;
     model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(event=>{
+        req.flash('success', 'Event successfully deleted');
         res.redirect('/events');
     })
     .catch(err=> next(err));

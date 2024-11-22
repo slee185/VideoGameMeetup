@@ -1,9 +1,8 @@
 <%- include('../partials/header.ejs') %>
     <div class="content">
         <% if(events.length) { %>
-            <h1>Select a meetup to view</h1>
+            <h1>Select a meetup to view</h1><br>
 
-            <br><br>
             <h2>Tournaments:</h2>
             <% events.forEach(event => { %>
                 <% if(event.type && (event.type === 'tournament') || event.type === 'Tournament') { %>
@@ -13,7 +12,7 @@
                 <% } %>
             <% }); %>
 
-            <br><br>
+            <br>
             <h2>Free Play:</h2>
             <% events.forEach(event => { %>
                 <% if(event.type && (event.type === 'free-play' || event.type === 'Free-Play')) { %>

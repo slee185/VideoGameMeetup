@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -109,12 +108,6 @@ main {
   cursor: pointer;
   position: relative;
   left: 30%;
-  
- /* position: absolute; */
- /*
-  left: 42%;
-  top: 90%;
-  */
 }
 
 .wrap-text {
@@ -143,8 +136,8 @@ main {
 .display-meetups {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  max-width: 400px;
+  align-items: center;
+  text-align: center;
   margin: 0 auto;
 }
 .meetup-info {
@@ -236,5 +229,79 @@ main {
   padding: 0.5rem 0;
 }
 
-  
+.event-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.profile-events {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.event-image {
+  flex-shrink: 0;
+  max-width: 250px;
+  height: auto;
+}
+
+.event-image img {
+  width: 100%;
+  height: auto;
+}
+
+.event-text {
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.event-text .meetup-info {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  row-gap: 10px;
+  column-gap: 15px;
+}
+
+.event-text .info-labels p {
+  text-align: right;
+  font-weight: bold;
+}
+
+.event-text .info-answers p {
+  margin: 0;
+  text-align: left;
+}
+
+.wrap-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.event-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.event-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.event-buttons img {
+  width: 20px;
+  height: 20px;
+}

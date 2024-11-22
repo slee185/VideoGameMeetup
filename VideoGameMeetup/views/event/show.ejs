@@ -1,45 +1,56 @@
 <%- include('../partials/header.ejs') %>
-  <%if (user == event.host._id) { %>
-    <form>
+
+<!-- edit and delete buttons show on profile page -->
+<!-- <% if (String(user._id) === String(event.host._id)) { %>
+  <form>
       <br>
-      <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit"><img src = "/images/edit_icon.png" alt="Edit Button"></button>
-      <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE"><img src = "/images/trash_icon.png" alt="Trash Button"></button>
-  </form>
-  <%}%>
+      <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit">
+        <img src = "/images/edit_icon.png" alt="Edit Button">
+      </button>
+      <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE">
+        <img src = "/images/trash_icon.png" alt="Trash Button">
+      </button>
+    </form>
+  <% } %> -->
 
-    <div class="display-meetups">
+  <div class="display-meetups">
+    <h1><%=event.name%></h1>
+    <small>Posted <%= event.createdAt%> by <%= event.host.firstName + ' ' + event.host.lastName%></small>
+    <br>
 
-            <h3><%=event.name%></h3>
-            <small>Posted <%= event.createdAt%> by <%= event.host.firstName + ' ' + event.host.lastName%></small>
-            <br>
+    <div class="event-container">
+      <!-- Show event image -->
+      <div class='event-image'>
+        <img src="<%= event.imageFlyer %>" alt="Event Flyer">
+      </div>
 
-            <div class="meetup-info">
-                <div class="info-labels">
-                  <p>Game:</p><br>
-                  <p>Host:</p><br>
-                  <p>Date:</p><br>
-                  <p>Time:</p><br>
-                  <p>Location:</p><br>
-                  <p>Category:</p><br>
-                  <p>Platform:</p><br>
-                  <p>Details:</p>
-                </div>
+      <!-- Show event details -->
+      <div class="meetup-info">
+        <div class="info-labels">
+          <p>Game:</p><br>
+          <p>Host:</p><br>
+          <p>Date:</p><br>
+          <p>Time:</p><br>
+          <p>Location:</p><br>
+          <p>Category:</p><br>
+          <p>Platform:</p><br>
+          <p>Details:</p>
+        </div>
     
-                <div class="info-answers">
-                  <p><%=event.game%></p><br>
-                  <p><%=event.host.firstName + ' ' + event.host.lastName%></p><br>
-                  <p><%=event.date%></p><br>
-                  <p><%=event.startTime%> - <%=event.endTime%></p><br>
-                  <p><%=event.location%></p><br>
-                  <p><%=event.type%></p><br>
-                  <p><%=event.platform%></p><br>
-                  <p class="wrap-text"><%=event.details%></p>
-                </div>
-            </div>
+        <div class="info-answers">
+          <p><%=event.game%></p><br>
+          <p><%=event.host.firstName + ' ' + event.host.lastName%></p><br>
+          <p><%=event.formattedDate%></p><br>
+          <p><%=event.formattedStartTime%> - <%=event.formattedEndTime%></p><br>
+          <p><%=event.location%></p><br>
+          <p><%=event.formattedCategory%></p><br>
+          <p><%=event.formattedPlatform%></p><br>
+          <p class="wrap-text"><%=event.details%></p>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div class='pictures'>
-      <img src="<%= event.imageFlyer %>" alt="Event Flyer">
-    </div>
-  </main>
+</main>
 <%- include('../partials/footer.ejs')%>

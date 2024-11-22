@@ -21,12 +21,12 @@
             </a>
         </div>
         <nav>
-            <a href='/events/new'>New Meetup</a>
             <%if (!user) {%>
-                <a href="/users/login">Log In</a>
                 <a href="/users/new">Sign Up</a>
+                <a href="/users/login">Log In</a>
             <%} else {%>
-                <a href='/users/profile'>Profile</a>
+                <a href='/events/new'>New Meetup</a>
+                <a href='/users/profile'><%= user.firstName%>'s Profile</a>
                 <a href='/users/logout'>Logout</a>
             <%}%>
         </nav>
@@ -50,4 +50,3 @@
             <div class="success"> <%= message%></div>
         <%});
     }%>
-
