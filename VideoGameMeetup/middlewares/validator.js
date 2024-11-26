@@ -31,3 +31,15 @@ exports.validateResult = (req, res, next) => {
         return next();
     }
 };
+
+exports.validateEvent = [
+    body('name', 'Name cannot be empty').notEmpty().trim().escape(),
+    body('game', 'Game cannot be empty').notEmpty().trim().escape(),
+    body('category', 'Category cannot be empty').notEmpty().trim().escape(),
+    body('platform', 'Platform cannot be empty').notEmpty().trim().escape(),
+    body('details', 'Details cannot be empty').notEmpty().trim().escape(),
+    body('location', 'Location cannot be empty').notEmpty().trim().escape(),
+    body('date', 'Date cannot be empty').notEmpty().isDate(),
+    body('startTime', 'Start time cannot be empty').notEmpty().isString(),
+    body('endTime', 'End time cannot be empty').notEmpty().isString()
+]
