@@ -1,4 +1,3 @@
-const {validationResult} = require('express-validator');
 const model = require('../models/user');
 const Event = require('../models/event');
 
