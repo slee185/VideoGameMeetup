@@ -31,9 +31,3 @@ exports.validateResult = (req, res, next) => {
         return next();
     }
 };
-
-exports.validateEvent = [body('name', 'Name cannot be empty').notEmpty().trim().escape(),
-    body('game', 'Game cannot be empty').notEmpty().trim().escape(),
-    body('name', 'Name cannot be empty').notEmpty().trim().escape(),
-    body('details', 'Details cannot be empty').notEmpty().trim().escape(),
-    body('location', 'Location cannot be empty').notEmpty().trim().escape()];
