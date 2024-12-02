@@ -13,7 +13,7 @@ router.get('/',controller.index);
 router.get('/new', isLoggedIn, controller.new);
 
 // POST: Create a new event
-router.post('/', fileUpload, validateEvent, controller.create); //isLoggedIn
+router.post('/', isLoggedIn, fileUpload, validateEvent, controller.create); //isLoggedIn
 
 // GET: Send details of event identified by id
 router.get('/:id', validateId, controller.show); 

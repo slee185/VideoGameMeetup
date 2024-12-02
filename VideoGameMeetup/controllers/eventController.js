@@ -51,12 +51,13 @@ exports.show = (req, res, next) => {
                 date.setHours(hours, minutes);
                 return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
             }
-            // format date
+
             const formatDate = (dateString) => {
-                const date = new Date(dateString);
+                const [year, month, day] = dateString.split('-');
+                const date = new Date(year, month - 1, day); 
             
                 const daySuffix = (day) => {
-                    if (day > 3 && day < 21) return 'th'; // 11th - 20th
+                    if (day > 3 && day < 21) return 'th'; 
                     switch (day % 10) {
                         case 1: return 'st';
                         case 2: return 'nd';
@@ -65,16 +66,16 @@ exports.show = (req, res, next) => {
                     }
                 };
             
-                const day = date.getDate();
-                const dayWithSuffix = `${day}${daySuffix(day)}`;
+                const dayWithSuffix = `${day}${daySuffix(parseInt(day, 10))}`;
             
                 const options = { weekday: 'long', month: 'long', year: 'numeric' };
                 const formattedDateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
-                const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
-                const month = formattedDateParts.find(part => part.type === 'month').value;
-                const year = formattedDateParts.find(part => part.type === 'year').value;
             
-                return `${weekday} ${month} ${dayWithSuffix}, ${year}`;
+                const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
+                const monthName = formattedDateParts.find(part => part.type === 'month').value;
+                const yearNum = formattedDateParts.find(part => part.type === 'year').value;
+            
+                return `${weekday} ${monthName} ${dayWithSuffix}, ${yearNum}`;
             };
             event.formattedCategory = formatCategory(event.type);
             event.formattedPlatform = formatPlatform(event.platform);
