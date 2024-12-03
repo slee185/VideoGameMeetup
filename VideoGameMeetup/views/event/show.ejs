@@ -22,6 +22,7 @@
           <p>Category:</p><br>
           <p>Platform:</p><br>
           <p>Details:</p>
+          <p>RSVP Count: <strong><%= event.yesCount %></strong> people have confirmed</p><br>
         </div>
     
         <div class="info-answers">
@@ -35,9 +36,20 @@
           <p class="wrap-text"><%=event.details%></p>
         </div>
       </div>
+      <!-- RSVP Buttons -->
+      <% if (user && event.host._id.toString() !== user._id.toString()) { %>
+        <div class="rsvp-buttons">
+          <form action="/events/<%= event._id %>/rsvp" method="POST">
+            <button type="submit" name="status" value="YES" class="btn btn-primary">YES</button>
+            <button type="submit" name="status" value="MAYBE" class="btn btn-warning">MAYBE</button>
+            <button type="submit" name="status" value="NO" class="btn btn-danger">NO</button>
+          </form>
+        </div>
+      <% } else { %>
+        <p>You cannot RSVP for your own event.</p>
+      <% } %>
     </div>
   </div>
-</div>
 
 </main>
 <%- include('../partials/footer.ejs')%>
