@@ -21,7 +21,11 @@ const eventSchema = new Schema({
     date: {type: String, required: [true, 'date is required']},
     startTime: {type: String, required: [true, 'startTime is required']},
     endTime: {type: String, required: [true, 'endTime is required']},
-    imageFlyer: {type: String, required: [false, 'imageFlyer is not required']}
+    imageFlyer: {type: String, required: [true, 'imageFlyer is required']},
+    rsvps: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Rsvp'
+    }]
 },
 {timestamps: true}
 );

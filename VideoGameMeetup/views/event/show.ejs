@@ -3,7 +3,29 @@
   <div class="display-meetups">
     <h1><%=event.name%></h1>
     <small>Posted <%= event.createdAt%> by <%= event.host.firstName + ' ' + event.host.lastName%></small>
-    <br>
+          <!-- RSVP Buttons -->
+          <% if (!user) { %>
+            <div class="rsvp-buttons">
+              <form action="/events/<%= event._id %>/rsvp" method="POST">
+                <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
+                <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
+                <button type="submit" name="status" value="NO" class="btn-no">NO</button>
+              </form>
+            </div>
+          <% } else { %>
+            <% if (user && event.host._id.toString() !== user._id.toString()) { %>
+              <div class="rsvp-buttons">
+                <form action="/events/<%= event._id %>/rsvp" method="POST">
+                  <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
+                  <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
+                  <button type="submit" name="status" value="NO" class="btn-no">NO</button>
+                </form>
+              </div>
+            <% }  else { %>
+                <p>You cannot RSVP for your own event.</p>
+              <% } %>
+          <% } %>
+          <br>
 
     <div class="event-container">
       <!-- Show event image -->
@@ -21,8 +43,8 @@
           <p>Location:</p><br>
           <p>Category:</p><br>
           <p>Platform:</p><br>
-          <p>Details:</p>
-          <p>RSVP Count: <strong><%= event.yesCount %></strong> people have confirmed</p><br>
+          <p>Details:</p><br>
+          <p>RSVP Count:</p><br>
         </div>
     
         <div class="info-answers">
@@ -33,23 +55,11 @@
           <p><%=event.location%></p><br>
           <p><%=event.formattedCategory%></p><br>
           <p><%=event.formattedPlatform%></p><br>
-          <p class="wrap-text"><%=event.details%></p>
+          <p class="wrap-text"><%=event.details%></p><br>
+          <p><%= event.yesCount > 0 ? event.yesCount : 'None' %></p>
         </div>
       </div>
-      <!-- RSVP Buttons -->
-      <% if (user && event.host._id.toString() !== user._id.toString()) { %>
-        <div class="rsvp-buttons">
-          <form action="/events/<%= event._id %>/rsvp" method="POST">
-            <button type="submit" name="status" value="YES" class="btn btn-primary">YES</button>
-            <button type="submit" name="status" value="MAYBE" class="btn btn-warning">MAYBE</button>
-            <button type="submit" name="status" value="NO" class="btn btn-danger">NO</button>
-          </form>
-        </div>
-      <% } else { %>
-        <p>You cannot RSVP for your own event.</p>
-      <% } %>
     </div>
   </div>
-
 </main>
 <%- include('../partials/footer.ejs')%>

@@ -99,7 +99,7 @@ exports.show = (req, res, next) => {
 };
 
 exports.rsvpEvent = (req, res, next) => {
-    if (!req.user) {
+    if (!req.session.user) {
         return res.redirect('/login');
     }
 
@@ -110,28 +110,30 @@ exports.rsvpEvent = (req, res, next) => {
         return res.status(400).send('Invalid RSVP status');
     }
 
-    try {
-        const event = Event.findById(eventId);
-        // check if user is host
-        if (event.host.equals(req.user._id)) {
-            return res.status(401).send('You cannot RSVP for your own event');
-        }
-        // create or update RSVP
-        const rsvp = RSVP.findOneAndUpdate(
-            {user: req.user._id, event: eventId},
-            {status},
-            {upsert: true, new: true}
-        );
-        // update evnt and count "YES" RSVPs
-        const updatedEvent = Event.findById(eventId).populate('rsvps');
-        const yesCount = updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length;
-        // redirect to event page with updated rsvp count
-        res.redirect(`/events/${eventId}`);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
-}
+    Event.findById(eventId)
+        .then(event => {
+            // check if user is host
+            if (event.host.equals(req.session.user._id)) {
+                return res.status(401).send('You cannot RSVP for your own event');
+            }
+            return RSVP.findOneAndUpdate(
+                {user: req.session.user._id, event: eventId},
+                {status},
+                {upsert: true, new: true}
+            );
+        })
+        .then(() => {
+            return Event.findById(eventId).populate('rsvps');
+        })
+        .then(updatedEvent => {
+            const yesCount = updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+            res.redirect(`/events/${eventId}`);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Server error');
+        });
+};
 
 exports.edit = (req, res, next)=>{
     let id = req.params.id;

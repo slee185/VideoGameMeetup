@@ -305,3 +305,54 @@ main {
   width: 20px;
   height: 20px;
 }
+
+/* RSVP Buttons Custom Styles */
+.rsvp-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.rsvp-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.rsvp-buttons button:hover {
+  opacity: 0.8; /* Adds a hover effect */
+}
+
+/* YES Button (Green) */
+.rsvp-buttons .btn-yes {
+  background-color: #28a745; /* Green */
+  color: white;
+}
+
+.rsvp-buttons .btn-yes:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* MAYBE Button (Yellow) */
+.rsvp-buttons .btn-maybe {
+  background-color: #ffc107; /* Yellow */
+  color: white;
+}
+
+.rsvp-buttons .btn-maybe:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
+
+/* NO Button (Red) */
+.rsvp-buttons .btn-no {
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+
+.rsvp-buttons .btn-no:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
