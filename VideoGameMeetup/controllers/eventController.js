@@ -1,8 +1,9 @@
-const {validationResult} = require('express-validator');
-const model = require('../models/event');
+// const {validationResult} = require('express-validator');
+const Event = require('../Events/event');
+const RSVP = require('../Events/rsvp');
 
 exports.index = (req, res, next) => {
-    model.find()
+    Event.find()
     .then(events=> res.render('./event/index', {events}))
     .catch(err=>next(err));
 };
@@ -12,7 +13,7 @@ exports.new = (req, res)=> {
 }
 
 exports.create = (req, res, next) => {
-    let event = new model(req.body);
+    let event = new Event(req.body);
     event.host = req.session.user;
     event.imageFlyer = "/images/" + req.file.filename;
     event.save()
@@ -27,9 +28,12 @@ exports.create = (req, res, next) => {
 
 exports.show = (req, res, next) => {
     let id = req.params.id;
-    model.findById(id).populate('host', 'firstName lastName')
+    Event.findById(id).populate('host', 'firstName lastName')
+    .populate('rsvps') // populate RSVPs for the event
     .then(event=>{
         if(event) {
+            // calculate # of YES RSVPs
+            const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
             // format category
             const formatCategory = (type) => {
                 return type
@@ -51,7 +55,7 @@ exports.show = (req, res, next) => {
                 date.setHours(hours, minutes);
                 return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
             }
-
+            // format date
             const formatDate = (dateString) => {
                 const [year, month, day] = dateString.split('-');
                 const date = new Date(year, month - 1, day); 
@@ -84,7 +88,7 @@ exports.show = (req, res, next) => {
             event.formattedDate = formatDate(event.date);
 
             console.log(event);
-            return res.render('./event/show', {event});
+            return res.render('./event/show', {event, yesCount});
         } else {
             let err = new Error('Cannot find an event with id ' + id);
             err.status = 404;
@@ -94,9 +98,44 @@ exports.show = (req, res, next) => {
     .catch(err=>next(err));
 };
 
+exports.rsvpEvent = (req, res, next) => {
+    if (!req.user) {
+        return res.redirect('/login');
+    }
+
+    const {eventId} = req.params;
+    const {status} = req.body;
+
+    if (!['YES', 'NO', 'MAYBE'].includes(status)) {
+        return res.status(400).send('Invalid RSVP status');
+    }
+
+    try {
+        const event = Event.findById(eventId);
+        // check if user is host
+        if (event.host.equals(req.user._id)) {
+            return res.status(401).send('You cannot RSVP for your own event');
+        }
+        // create or update RSVP
+        const rsvp = RSVP.findOneAndUpdate(
+            {user: req.user._id, event: eventId},
+            {status},
+            {upsert: true, new: true}
+        );
+        // update evnt and count "YES" RSVPs
+        const updatedEvent = Event.findById(eventId).populate('rsvps');
+        const yesCount = updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+        // redirect to event page with updated rsvp count
+        res.redirect(`/events/${eventId}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+}
+
 exports.edit = (req, res, next)=>{
     let id = req.params.id;
-    model.findById(id)
+    Event.findById(id)
     .then(event=>{
         return res.render('./event/edit', {event});
     })
@@ -106,7 +145,7 @@ exports.edit = (req, res, next)=>{
 exports.update = (req, res, next)=>{
     let event = req.body;
     let id = req.params.id;
-    model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
+    Event.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators:true})
     .then(event=>{
         req.flash('success', 'Event successfully updated');
         res.redirect('/events/'+id);
@@ -121,7 +160,7 @@ exports.update = (req, res, next)=>{
 
 exports.delete = (req, res, next)=>{
     let id = req.params.id;
-    model.findByIdAndDelete(id, {useFindAndModify: false})
+    Event.findByIdAndDelete(id, {useFindAndModify: false})
     .then(event=>{
         req.flash('success', 'Event successfully deleted');
         res.redirect('/events');
