@@ -15,9 +15,7 @@ exports.new = (req, res)=> {
 exports.create = (req, res, next) => {
     let event = new Event(req.body);
     event.host = req.session.user._id;
-    if (req.file) {
-        event.imageFlyer = "/images/" + req.file.filename;
-    }
+    event.imageFlyer = "/images/" + req.file.filename;
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{
@@ -30,12 +28,14 @@ exports.create = (req, res, next) => {
 
 exports.show = (req, res, next) => {
     let id = req.params.id;
-    Event.findById(id).populate('host', 'firstName lastName')
+    let userId = req.session.user ? req.session.user._id : null;
+
+    Event.findById(id)
+    .populate('host', 'firstName lastName')
     .populate('rsvps') // populate RSVPs for the event
     .then(event=>{
         if(event) {
-            // calculate # of YES RSVPs
-            const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+            console.log(event.host);
             // format category
             const formatCategory = (type) => {
                 return type
@@ -89,8 +89,22 @@ exports.show = (req, res, next) => {
             event.formattedEndTime = formatTime(event.endTime);
             event.formattedDate = formatDate(event.date);
 
-            console.log(event);
-            return res.render('./event/show', {event, yesCount});
+            // count 'yes' rsvps
+            const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+
+            // check if user has rsvp'd and get their status
+            let userRsvpStatus = null;
+            if (userId) {
+                const userRsvp = event.rsvps.find(rsvp => rsvp.user._id.toString() === userId.toString());
+                if (userRsvp) {
+                    userRsvpStatus = userRsvp.status;
+                }
+            }
+
+            // is current user host?
+            const isHost = userId && event.host._id.toString() === userId.toString();
+
+            res.render('./event/show', {event, yesCount, userRsvpStatus, isHost});
         } else {
             let err = new Error('Cannot find an event with id ' + id);
             err.status = 404;
@@ -101,20 +115,18 @@ exports.show = (req, res, next) => {
 };
 
 exports.rsvpEvent = (req, res, next) => {
-    
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-
-    let eventId = req.params.id;
+    const eventId = req.params.eventId;
+    const userId = req.session.user._id;
     const {status} = req.body;
 
+    // confirm valid status
     if (!['YES', 'NO', 'MAYBE'].includes(status)) {
-        return res.status(400).send('Invalid RSVP status');
+        const err = new Error('Invalid RSVP status');
+        err.status = 400;
+        return next(err);
     }
 
     Event.findById(eventId)
-        .populate('host', 'firstName lastName')
         .then(event => {
             if (!event) {
                 const err = new Error('Event not found');
@@ -122,30 +134,28 @@ exports.rsvpEvent = (req, res, next) => {
                 return next(err);
             }
 
-            console.log("Event: ", event);
-
-            // check if user is host
-            if (event.host && event.host._id.equals(req.session.user._id)) {
-                return res.status(401).send('You cannot RSVP for your own event');
-            }
-            return RSVP.findOneAndUpdate(
-                {user: req.session.user._id, event: eventId},
-                {status},
-                {upsert: true, new: true}
-            );
+            // is user rsvp'd to this event
+            return RSVP.findOne({user: userId, event: eventId})
+                .then(existingRsvp => {
+                    if (existingRsvp) {
+                        // update rsvp
+                        existingRsvp.status = status;
+                        return existingRsvp.save();
+                    } else {
+                        // new rsvp
+                        const newRsvp = new RSVP({
+                            user: userId,
+                            event: eventId,
+                            status: status
+                        });
+                        return newRsvp.save();
+                    }
+                });
         })
-        .then(() => Event.findById(eventId).populate('rsvps'))
-        .then(updatedEvent => {
-            const yesCount = updatedEvent && updatedEvent.rsvps
-                ? updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length
-                : 0;
-
+        .then(() => {
             res.redirect(`/events/${eventId}`);
         })
-        .catch(err => {
-            console.error(err);
-            next(err);
-        });
+        .catch(err => next(err));
 };
 
 exports.edit = (req, res, next)=>{

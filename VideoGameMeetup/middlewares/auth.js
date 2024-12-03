@@ -1,4 +1,4 @@
-const Event = require('../models/event'); //story
+const Event = require('../models/event');
 
 // check if user is a guest
 exports.isGuest = (req, res, next)=>{

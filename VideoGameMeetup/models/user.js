@@ -10,7 +10,11 @@ const userSchema = new Schema({
         unique: [true, 'this email address has been used'],
         match: [/\S+@\S+\.\S+/, 'Please enter a valid email address']
     },
-    password: {type: String, required: [true, 'password is required']}
+    password: {type: String, required: [true, 'password is required']},
+    rsvps: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Event'
+    }]
 });
 
 //replace plaintext password with hashed password

@@ -2,30 +2,34 @@
 
   <div class="display-meetups">
     <h1><%=event.name%></h1>
-    <small>Posted <%= event.createdAt%> by <%= event.host.firstName + ' ' + event.host.lastName%></small>
-          <!-- RSVP Buttons -->
-          <% if (!user) { %>
-            <div class="rsvp-buttons">
-              <form action="/events/<%= event._id %>/rsvp" method="POST">
-                <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
-                <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
-                <button type="submit" name="status" value="NO" class="btn-no">NO</button>
-              </form>
-            </div>
+    <small>Posted <%= event.createdAt %> by <%= event.host.firstName + ' ' + event.host.lastName %></small>
+
+    <!-- RSVP Buttons -->
+     <!-- Check if user is logged in -->
+    <% if (!user) { %>
+      <!-- user is not the host -->
+      <% if (user && event.host._id.toString() !== user._id.toString()) { %>
+        <div class="rsvp-buttons">
+          <form action="/events/<%= event._id %>/rsvp" method="POST">
+            <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
+            <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
+            <button type="submit" name="status" value="NO" class="btn-no">NO</button>
+          </form>
+        </div>
           <% } else { %>
-            <% if (user && event.host._id.toString() !== user._id.toString()) { %>
-              <div class="rsvp-buttons">
-                <form action="/events/<%= event._id %>/rsvp" method="POST">
-                  <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
-                  <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
-                  <button type="submit" name="status" value="NO" class="btn-no">NO</button>
-                </form>
-              </div>
-            <% }  else { %>
-                <p>You cannot RSVP for your own event.</p>
-              <% } %>
+            <p>You cannot RSVP for your own event.</p>
           <% } %>
-          <br>
+    <% }  else { %>
+      <!-- show RSVP buttons if user is not logged in -->
+      <div class="rsvp-buttons">
+        <form action="/events/<%= event._id %>/rsvp" method="POST">
+          <button type="submit" name="status" value="YES" class="btn-yes">YES</button>
+          <button type="submit" name="status" value="MAYBE" class="btn-maybe">MAYBE</button>
+          <button type="submit" name="status" value="NO" class="btn-no">NO</button>
+        </form>
+      </div>
+    <% } %>
+    <br>
 
     <div class="event-container">
       <!-- Show event image -->
