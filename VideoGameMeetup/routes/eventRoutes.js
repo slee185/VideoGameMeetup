@@ -13,7 +13,7 @@ router.get('/',controller.index);
 router.get('/new', isLoggedIn, controller.new);
 
 // POST: Create a new event
-router.post('/', isLoggedIn, fileUpload, validateEvent, controller.create); //isLoggedIn
+router.post('/', isLoggedIn, fileUpload, validateEvent, controller.create);
 
 // GET: Send details of event identified by id
 router.get('/:id', validateId, controller.show); 
@@ -26,5 +26,8 @@ router.put('/:id', validateId, isLoggedIn, isHost, validateEvent, controller.upd
 
 // DELETE: Delete the event identified by id
 router.delete('/:id', validateId, isLoggedIn, isHost, controller.delete);
+
+// POST: RSVP Route
+router.post('/:eventID/rsvp', isLoggedIn, controller.rsvpEvent);
 
 module.exports = router;
