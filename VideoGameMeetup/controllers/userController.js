@@ -35,16 +35,16 @@ exports.getUserLogin = (req, res, next) => {
 
 exports.login = (req, res, next)=>{
     let email = req.body.email;
-    if(email)
+    if (email)
         email = email.toLowerCase();
     let password = req.body.password;
-    model.findOne({ email: email })
+
+    model.findOne({email: email})
     .then(user => {
         if (!user) {
-            console.log('wrong email address');
             req.flash('error', 'wrong email address');  
             res.redirect('/users/login');
-            } else {
+        } else {
             user.comparePassword(password)
             .then(result=>{
                 if(result) {
@@ -55,6 +55,10 @@ exports.login = (req, res, next)=>{
                 req.flash('error', 'wrong password');      
                 res.redirect('/users/login');
             }
+            })
+            .catch(err => {
+                req.flash('error', 'Server error');
+                res.redirect('/users/login');
             });     
         }     
     })
@@ -66,8 +70,6 @@ exports.profile = (req, res, next)=>{
     Promise.all([model.findById(id), Event.find({host: id})])
     .then(results=>{
         const [user, events] = results;
-        console.log("User:", user.firstName);
-        console.log("Events:", events);  // Check that events are showing
         res.render('user/profile', {user, events});
     })
     .catch(err=>next(err));

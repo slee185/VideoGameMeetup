@@ -13,7 +13,7 @@ const eventSchema = new Schema({
     platform: {
         type: String,
         required: [true, 'platform is required'],
-       enum: ['nintendo-switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
+        enum: ['nintendo-switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
     },
     host: {type: Schema.Types.ObjectId, ref:'User'},
     details: {type: String, required: [true, 'details is required']},

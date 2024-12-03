@@ -14,8 +14,10 @@ exports.new = (req, res)=> {
 
 exports.create = (req, res, next) => {
     let event = new Event(req.body);
-    event.host = req.session.user;
-    event.imageFlyer = "/images/" + req.file.filename;
+    event.host = req.session.user._id;
+    if (req.file) {
+        event.imageFlyer = "/images/" + req.file.filename;
+    }
     event.save()
     .then(event=> res.redirect('/events'))
     .catch(err=>{
@@ -99,11 +101,12 @@ exports.show = (req, res, next) => {
 };
 
 exports.rsvpEvent = (req, res, next) => {
+    
     if (!req.session.user) {
         return res.redirect('/login');
     }
 
-    const {eventId} = req.params;
+    let eventId = req.params.id;
     const {status} = req.body;
 
     if (!['YES', 'NO', 'MAYBE'].includes(status)) {
@@ -111,9 +114,18 @@ exports.rsvpEvent = (req, res, next) => {
     }
 
     Event.findById(eventId)
+        .populate('host', 'firstName lastName')
         .then(event => {
+            if (!event) {
+                const err = new Error('Event not found');
+                err.status = 404;
+                return next(err);
+            }
+
+            console.log("Event: ", event);
+
             // check if user is host
-            if (event.host.equals(req.session.user._id)) {
+            if (event.host && event.host._id.equals(req.session.user._id)) {
                 return res.status(401).send('You cannot RSVP for your own event');
             }
             return RSVP.findOneAndUpdate(
@@ -122,16 +134,17 @@ exports.rsvpEvent = (req, res, next) => {
                 {upsert: true, new: true}
             );
         })
-        .then(() => {
-            return Event.findById(eventId).populate('rsvps');
-        })
+        .then(() => Event.findById(eventId).populate('rsvps'))
         .then(updatedEvent => {
-            const yesCount = updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+            const yesCount = updatedEvent && updatedEvent.rsvps
+                ? updatedEvent.rsvps.filter(rsvp => rsvp.status === 'YES').length
+                : 0;
+
             res.redirect(`/events/${eventId}`);
         })
         .catch(err => {
             console.error(err);
-            res.status(500).send('Server error');
+            next(err);
         });
 };
 
