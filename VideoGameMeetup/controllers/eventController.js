@@ -1,6 +1,6 @@
 // const {validationResult} = require('express-validator');
-const Event = require('../Events/event');
-const RSVP = require('../Events/rsvp');
+const Event = require('../models/event');
+const RSVP = require('../models/rsvp');
 
 exports.index = (req, res, next) => {
     Event.find()

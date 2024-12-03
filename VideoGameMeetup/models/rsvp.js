@@ -14,8 +14,8 @@ const rsvpSchema = new Schema({
         required: true
     },
     status: {
-        type: Schema.Types.ObjectId, 
-        ref: ['YES', 'NO', 'MAYBE'],
+        type: String, 
+        enum: ['YES', 'NO', 'MAYBE'],
         required: true
     }
 },
@@ -23,6 +23,6 @@ const rsvpSchema = new Schema({
 );
 
 // only allow user to rsvp once
-rsvpSchema.index({user: 1, event: 1}, {unieque: true});
+rsvpSchema.index({user: 1, event: 1}, {unique: true});
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('Rsvp', rsvpSchema);
