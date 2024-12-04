@@ -13,7 +13,7 @@ const userSchema = new Schema({
     password: {type: String, required: [true, 'password is required']},
     rsvps: [{
         type: Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Rsvp'
     }]
 });
 

@@ -1,8 +1,7 @@
 // const {validationResult} = require('express-validator');
 const Event = require('../models/event');
+const User = require('../models/user');
 const RSVP = require('../models/rsvp');
-const mongoose = require('mongoose');
-
 
 exports.index = (req, res, next) => {
     Event.find()
@@ -106,7 +105,6 @@ exports.show = (req, res, next) => {
 exports.rsvpEvent = (req, res, next) => {
     const eventId = req.params.eventId;
     const userId = req.session.user;
-
     const {status} = req.body;
 
     // confirm valid status
@@ -118,8 +116,9 @@ exports.rsvpEvent = (req, res, next) => {
 
     Event.findById(eventId)
         .then(event => {
-            // is user rsvp'd to this event
-            return RSVP.findOne({user: userId, event: eventId})
+            return User.findById(userId)
+            .then(user => {
+                return RSVP.findOne({user: userId, event: eventId})
                 .then(existingRsvp => {
                     if (existingRsvp) {
                         // update rsvp
@@ -140,12 +139,84 @@ exports.rsvpEvent = (req, res, next) => {
                             });
                     }
                 });
+            })            
         })
         .then(() => {
             res.redirect(`/events/${eventId}`);
         })
         .catch(err => next(err));
 };
+
+
+// exports.rsvpEvent = (req, res, next) => {
+//     const eventId = req.params.eventId;
+//     const userId = req.session.user;
+//     const {status} = req.body;
+
+//     // confirm valid status
+//     if (!['YES', 'NO', 'MAYBE'].includes(status)) {
+//         const err = new Error('Invalid RSVP status');
+//         err.status = 400;
+//         return next(err);
+//     }
+
+//     Event.findById(eventId)
+//         .then(event => {
+//             // is user rsvp'd to this event
+//             return RSVP.findOne({user: userId, event: eventId})
+//                 .then(existingRsvp => {
+//                     if (existingRsvp) {
+//                         // update rsvp
+//                         existingRsvp.status = status;
+//                         return existingRsvp.save();
+//                     } else {
+//                         // new rsvp
+//                         const newRsvp = new RSVP({
+//                             user: userId,
+//                             event: eventId,
+//                             status: status
+//                         });
+
+//                         return newRsvp.save()
+//                             .then(savedRsvp => {
+//                                 event.rsvps.push(savedRsvp._id);
+//                                 return event.save();
+//                             });
+//                     }
+//                 })
+//                 .then(() => {
+//                     // update user's rsvps array
+//                     return User.findById(userId)
+//                     .then(user => {
+//                         return RSVP.findOne({user: userId, event: eventId})
+//                         .then(existingRsvp => {
+//                             if (existingRsvp) {
+//                                 // update rsvp
+//                                 existingRsvp.status = status;
+//                                 return existingRsvp.save();
+//                             } else {
+//                                 // new rsvp
+//                                 const newRsvp = new RSVP({
+//                                     user: userId,
+//                                     event: eventId,
+//                                     status: status
+//                                 });
+        
+//                                 return newRsvp.save()
+//                                     .then(savedRsvp => {
+//                                         user.rsvps.push(savedRsvp._id);
+//                                         return user.save();
+//                                     });
+//                             }
+//                         })
+//                     });
+//                 });
+//         })
+//         .then(() => {
+//             res.redirect(`/events/${eventId}`);
+//         })
+//         .catch(err => next(err));
+// };
 
 exports.edit = (req, res, next)=>{
     let id = req.params.id;
