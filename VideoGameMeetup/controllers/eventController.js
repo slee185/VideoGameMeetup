@@ -124,6 +124,7 @@ exports.rsvpEvent = (req, res, next) => {
                         // If an RSVP already exists, update it
                         existingRsvp.status = status;
                         rsvpToSave = existingRsvp;
+                        req.flash('success', 'RSVP status updated');
                     } else {
                         // If no RSVP exists, create a new one
                         rsvpToSave = new RSVP({
@@ -131,6 +132,7 @@ exports.rsvpEvent = (req, res, next) => {
                             event: eventId,
                             status: status
                         });
+                        req.flash('success', 'RSVP status added');
                     }
 
                     // Save the RSVP (whether updated or new)
@@ -156,7 +158,8 @@ exports.rsvpEvent = (req, res, next) => {
         })
         .then(() => {
             // After saving, redirect to the event page
-            res.redirect(`/events/${eventId}`);
+            //res.redirect(`/events/${eventId}`);
+            res.redirect(`/users/profile`);
         })
         .catch(err => next(err));
 };
