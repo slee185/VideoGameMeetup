@@ -356,3 +356,34 @@ main {
 .rsvp-buttons .btn-no:hover {
   background-color: #c82333; /* Darker red on hover */
 }
+
+.rsvp-events {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.rsvp-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.rsvp-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.rsvp-column {
+  width: 45%; /* Adjust as necessary for your layout */
+}
+
+.rsvp-column a {
+  text-decoration: none;
+  color: #000;
+}
+
+.rsvp-column p {
+  margin: 0;
+}

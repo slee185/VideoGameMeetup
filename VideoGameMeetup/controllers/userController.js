@@ -70,19 +70,21 @@ exports.profile = (req, res, next) => {
     let id = req.session.user;
 
     Promise.all([
-        model.findById(id),
+        model.findById(id),  // Fetch the user
         Event.find({ host: id }), // Events created by the user
-        RSVP.find({ user: id }).populate('event') // Events the user has RSVPed to
+        RSVP.find({ user: id }).populate('event') // Populate the event field and include status
     ])
     .then(results => {
-        const [user, events] = results;
-        
-        // Extract events from the user's RSVPs
-        const rsvpEvents = user.rsvps.map(rsvp => rsvp.event); // Extract the event object from each RSVP
-        console.log(rsvpEvents);  // This should show an array of events (or null/undefined)
+        const [user, events, rsvpResults] = results;
 
-        
-        // Render the profile page, passing both created events and RSVP events
+        // Ensure rsvpResults contains the status information for each RSVP
+        const rsvpEvents = rsvpResults.map(rsvp => ({
+            event: rsvp.event,
+            status: rsvp.status // The status field will now be available
+        }));
+
+        console.log(rsvpEvents); // Log to verify the structure of the data
+
         res.render('user/profile', { 
             user, 
             events, 
@@ -91,6 +93,8 @@ exports.profile = (req, res, next) => {
     })
     .catch(err => next(err));
 };
+
+
 
 exports.logout = (req, res, next)=>{
     req.session.destroy(err=>{

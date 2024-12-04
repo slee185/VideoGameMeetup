@@ -25,27 +25,28 @@
     <% } %>
 
 <!-- Code to show RSVPs -->
-    <%if(rsvpEvents.length) {%>
-        <h3>Your RSVPs:</h3>
-        <%rsvpEvents.forEach(event => {%>
-            <div class="profile-events">
-            <a href = '/events/<%= event._id%>'><p><%=event.name%></p></a>
-            <div class="event-buttons">
-                <form>
-                    <br>
-                    <button type = "submit" formmethod="GET" formaction="/events/<%=event._id%>/edit">
-                    <img src = "/images/edit_icon.png" alt="Edit Button">
-                    </button>
-                    <button type = "submit" formmethod="POST" formaction="/events/<%=event._id%>?_method=DELETE">
-                    <img src = "/images/trash_icon.png" alt="Trash Button">
-                    </button>
-                </form>
-            </div>
+<% if (rsvpEvents && rsvpEvents.length > 0) { %>
+    <h3>Your RSVPs:</h3>
+    <div class="rsvp-events">
+        <div class="rsvp-header">
+            <div class="rsvp-column">Event</div>
+            <div class="rsvp-column">RSVP Status</div>
         </div>
+        <% rsvpEvents.forEach(rsvp => { %>
+            <div class="rsvp-row">
+                <div class="rsvp-column">
+                    <a href='/events/<%= rsvp.event._id %>'><p><%= rsvp.event.name %></p></a>
+                </div>
+                <div class="rsvp-column">
+                    <p><%= rsvp.status || "No RSVP" %></p> <!-- Show the RSVP status -->
+                </div>
+            </div>
         <% }); %>
-    <% } else {%>
-        <p>You currently have no RSVPs.</p>
-    <% } %>
+    </div>
+<% } else { %>
+    <p>You currently have no RSVPs.</p>
+<% } %>
+
 
 </main>
-<%- include('../partials/footer.ejs')%>
+<%- include('../partials/footer.ejs') %>

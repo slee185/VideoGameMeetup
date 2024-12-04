@@ -60,7 +60,9 @@
           <p><%=event.formattedCategory%></p><br>
           <p><%=event.formattedPlatform%></p><br>
           <p class="wrap-text"><%=event.details%></p><br>
-          <p><%= event.rsvps.length %></p>
+          <p>
+            <%= event.rsvps.filter(rsvp => rsvp.status === 'YES').length %>
+          </p>        
         </div>
       </div>
     </div>
