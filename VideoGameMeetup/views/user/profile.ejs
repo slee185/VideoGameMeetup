@@ -37,6 +37,7 @@
         </thead>
         <tbody>
             <% rsvpEvents.forEach(rsvp => { %>
+                <% if (rsvp.event) { %>
                 <tr>
                     <td>
                         <a href='/events/<%= rsvp.event._id %>'><%= rsvp.event.name %></a>
@@ -45,6 +46,7 @@
                         <%= rsvp.status || "No RSVP" %>
                     </td>
                 </tr>
+                <% } %>
             <% }); %>
         </tbody>
     </table>

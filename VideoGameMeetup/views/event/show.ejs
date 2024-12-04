@@ -16,8 +16,11 @@
             <button type="submit" name="status" value="NO" class="btn-no">NO</button>
           </form>
         </div>
-          <% } else { %>
+          <% } else if (user) { %>
             <p>You cannot RSVP for your own event.</p>
+
+            <% }  else { %>
+            <p>You must login to RSVP for an event.</p>
           <% } %>
     <% }  else { %>
       <!-- show RSVP buttons if user is not logged in -->
