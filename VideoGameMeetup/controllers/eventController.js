@@ -1,6 +1,8 @@
 // const {validationResult} = require('express-validator');
 const Event = require('../models/event');
 const RSVP = require('../models/rsvp');
+const mongoose = require('mongoose');
+
 
 exports.index = (req, res, next) => {
     Event.find()
@@ -25,6 +27,7 @@ exports.create = (req, res, next) => {
         next(err);
     });
 };
+
 exports.show = (req, res, next) => {
     let eventId = req.params.id;
     let userId = req.session.user ? req.session.user._id : null;
@@ -33,19 +36,11 @@ exports.show = (req, res, next) => {
     .populate('host', 'firstName lastName') // Populating only firstName and lastName of the host
     .populate('rsvps') // Populate RSVPs for the event
     .then(event => {
-        // Debugging to ensure host is populated
-        console.log('Event with populated host:', event);
 
         if (!event) {
             const err = new Error('Cannot find an event with id ' + eventId);
             err.status = 404;
             return next(err);
-        }
-
-        if (event.host) {
-            console.log('Host:', event.host.firstName, event.host.lastName);
-        } else {
-            console.error('Host is still undefined or not populated');
         }
 
         // Format and process event data
@@ -110,8 +105,8 @@ exports.show = (req, res, next) => {
 
 exports.rsvpEvent = (req, res, next) => {
     const eventId = req.params.eventId;
-    const userId = req.session.user._id;
-    
+    const userId = req.session.user;
+
     const {status} = req.body;
 
     // confirm valid status
@@ -123,12 +118,6 @@ exports.rsvpEvent = (req, res, next) => {
 
     Event.findById(eventId)
         .then(event => {
-            if (!event) {
-                const err = new Error('Event not found');
-                err.status = 404;
-                return next(err);
-            }
-
             // is user rsvp'd to this event
             return RSVP.findOne({user: userId, event: eventId})
                 .then(existingRsvp => {
@@ -143,6 +132,8 @@ exports.rsvpEvent = (req, res, next) => {
                             event: eventId,
                             status: status
                         });
+                        console.log(newRsvp);
+
                         return newRsvp.save();
                     }
                 });

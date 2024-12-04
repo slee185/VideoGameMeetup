@@ -28,6 +28,6 @@ router.put('/:id', validateId, isLoggedIn, isHost, validateEvent, controller.upd
 router.delete('/:id', validateId, isLoggedIn, isHost, controller.delete);
 
 // POST: RSVP Route
-router.post('/:eventID/rsvp', isLoggedIn, controller.rsvpEvent);
+router.post('/:eventId/rsvp', isLoggedIn, controller.rsvpEvent);
 
 module.exports = router;
