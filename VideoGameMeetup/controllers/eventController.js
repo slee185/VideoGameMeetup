@@ -105,7 +105,7 @@ exports.show = (req, res, next) => {
 exports.rsvpEvent = (req, res, next) => {
     const eventId = req.params.eventId;
     const userId = req.session.user;
-    const {status} = req.body;
+    const { status } = req.body;
 
     // confirm valid status
     if (!['YES', 'NO', 'MAYBE'].includes(status)) {
@@ -116,107 +116,52 @@ exports.rsvpEvent = (req, res, next) => {
 
     Event.findById(eventId)
         .then(event => {
-            return User.findById(userId)
-            .then(user => {
-                return RSVP.findOne({user: userId, event: eventId})
+            return RSVP.findOne({ user: userId, event: eventId })
                 .then(existingRsvp => {
+                    let rsvpToSave;
+
                     if (existingRsvp) {
-                        // update rsvp
+                        // If an RSVP already exists, update it
                         existingRsvp.status = status;
-                        return existingRsvp.save();
+                        rsvpToSave = existingRsvp;
                     } else {
-                        // new rsvp
-                        const newRsvp = new RSVP({
+                        // If no RSVP exists, create a new one
+                        rsvpToSave = new RSVP({
                             user: userId,
                             event: eventId,
                             status: status
                         });
-
-                        return newRsvp.save()
-                            .then(savedRsvp => {
-                                event.rsvps.push(savedRsvp._id);
-                                return event.save();
-                            });
                     }
+
+                    // Save the RSVP (whether updated or new)
+                    return rsvpToSave.save()
+                        .then(savedRsvp => {
+                            // Update the event with the new/updated RSVP
+                            if (!event.rsvps.includes(savedRsvp._id)) {
+                                event.rsvps.push(savedRsvp._id);
+                            }
+                            return event.save();
+                        })
+                        .then(() => {
+                            // Update the user with the new/updated RSVP
+                            return User.findById(userId)
+                                .then(user => {
+                                    if (!user.rsvps.includes(rsvpToSave._id)) {
+                                        user.rsvps.push(rsvpToSave._id);
+                                    }
+                                    return user.save();
+                                });
+                        });
                 });
-            })            
         })
         .then(() => {
+            // After saving, redirect to the event page
             res.redirect(`/events/${eventId}`);
         })
         .catch(err => next(err));
 };
 
 
-// exports.rsvpEvent = (req, res, next) => {
-//     const eventId = req.params.eventId;
-//     const userId = req.session.user;
-//     const {status} = req.body;
-
-//     // confirm valid status
-//     if (!['YES', 'NO', 'MAYBE'].includes(status)) {
-//         const err = new Error('Invalid RSVP status');
-//         err.status = 400;
-//         return next(err);
-//     }
-
-//     Event.findById(eventId)
-//         .then(event => {
-//             // is user rsvp'd to this event
-//             return RSVP.findOne({user: userId, event: eventId})
-//                 .then(existingRsvp => {
-//                     if (existingRsvp) {
-//                         // update rsvp
-//                         existingRsvp.status = status;
-//                         return existingRsvp.save();
-//                     } else {
-//                         // new rsvp
-//                         const newRsvp = new RSVP({
-//                             user: userId,
-//                             event: eventId,
-//                             status: status
-//                         });
-
-//                         return newRsvp.save()
-//                             .then(savedRsvp => {
-//                                 event.rsvps.push(savedRsvp._id);
-//                                 return event.save();
-//                             });
-//                     }
-//                 })
-//                 .then(() => {
-//                     // update user's rsvps array
-//                     return User.findById(userId)
-//                     .then(user => {
-//                         return RSVP.findOne({user: userId, event: eventId})
-//                         .then(existingRsvp => {
-//                             if (existingRsvp) {
-//                                 // update rsvp
-//                                 existingRsvp.status = status;
-//                                 return existingRsvp.save();
-//                             } else {
-//                                 // new rsvp
-//                                 const newRsvp = new RSVP({
-//                                     user: userId,
-//                                     event: eventId,
-//                                     status: status
-//                                 });
-        
-//                                 return newRsvp.save()
-//                                     .then(savedRsvp => {
-//                                         user.rsvps.push(savedRsvp._id);
-//                                         return user.save();
-//                                     });
-//                             }
-//                         })
-//                     });
-//                 });
-//         })
-//         .then(() => {
-//             res.redirect(`/events/${eventId}`);
-//         })
-//         .catch(err => next(err));
-// };
 
 exports.edit = (req, res, next)=>{
     let id = req.params.id;

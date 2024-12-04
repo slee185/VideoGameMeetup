@@ -25,18 +25,18 @@
     <% } %>
 
 <!-- Code to show RSVPs -->
-    <%if(events.length) {%>
+    <%if(rsvpEvents.length) {%>
         <h3>Your RSVPs:</h3>
-        <%events.forEach(event => {%>
+        <%rsvpEvents.forEach(event => {%>
             <div class="profile-events">
-            <a href = '/events/<%= event.id%>'><p><%=event.name%></p></a>
+            <a href = '/events/<%= event._id%>'><p><%=event.name%></p></a>
             <div class="event-buttons">
                 <form>
                     <br>
-                    <button type = "submit" formmethod="GET" formaction="/events/<%=event.id%>/edit">
+                    <button type = "submit" formmethod="GET" formaction="/events/<%=event._id%>/edit">
                     <img src = "/images/edit_icon.png" alt="Edit Button">
                     </button>
-                    <button type = "submit" formmethod="POST" formaction="/events/<%=event.id%>?_method=DELETE">
+                    <button type = "submit" formmethod="POST" formaction="/events/<%=event._id%>?_method=DELETE">
                     <img src = "/images/trash_icon.png" alt="Trash Button">
                     </button>
                 </form>
@@ -47,6 +47,5 @@
         <p>You currently have no RSVPs.</p>
     <% } %>
 
-    </div>
 </main>
 <%- include('../partials/footer.ejs')%>

@@ -1,5 +1,6 @@
 const model = require('../models/user');
 const Event = require('../models/event');
+const RSVP = require('../models/rsvp');
 
 exports.new = (req, res)=>{
     return res.render('./user/new');
@@ -65,14 +66,30 @@ exports.login = (req, res, next)=>{
     .catch(err => next(err));
 };
 
-exports.profile = (req, res, next)=>{
+exports.profile = (req, res, next) => {
     let id = req.session.user;
-    Promise.all([model.findById(id), Event.find({host: id})])
-    .then(results=>{
+
+    Promise.all([
+        model.findById(id),
+        Event.find({ host: id }), // Events created by the user
+        RSVP.find({ user: id }).populate('event') // Events the user has RSVPed to
+    ])
+    .then(results => {
         const [user, events] = results;
-        res.render('user/profile', {user, events});
+        
+        // Extract events from the user's RSVPs
+        const rsvpEvents = user.rsvps.map(rsvp => rsvp.event); // Extract the event object from each RSVP
+        console.log(rsvpEvents);  // This should show an array of events (or null/undefined)
+
+        
+        // Render the profile page, passing both created events and RSVP events
+        res.render('user/profile', { 
+            user, 
+            events, 
+            rsvpEvents
+        });
     })
-    .catch(err=>next(err));
+    .catch(err => next(err));
 };
 
 exports.logout = (req, res, next)=>{
