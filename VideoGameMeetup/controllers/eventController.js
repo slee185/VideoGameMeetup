@@ -132,9 +132,12 @@ exports.rsvpEvent = (req, res, next) => {
                             event: eventId,
                             status: status
                         });
-                        console.log(newRsvp);
 
-                        return newRsvp.save();
+                        return newRsvp.save()
+                            .then(savedRsvp => {
+                                event.rsvps.push(savedRsvp._id);
+                                return event.save();
+                            });
                     }
                 });
         })
