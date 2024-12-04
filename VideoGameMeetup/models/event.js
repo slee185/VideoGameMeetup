@@ -15,7 +15,7 @@ const eventSchema = new Schema({
         required: [true, 'platform is required'],
         enum: ['nintendo-switch', 'xbox', 'playstation', 'mobile', 'pc', 'other']
     },
-    host: {type: Schema.Types.ObjectId, ref:'User'},
+    host: {type: Schema.Types.ObjectId, ref: 'User'},
     details: {type: String, required: [true, 'details is required']},
     location: {type: String, required: [true, 'location is required']},
     date: {type: String, required: [true, 'date is required']},

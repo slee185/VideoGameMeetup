@@ -14,7 +14,7 @@ exports.new = (req, res)=> {
 
 exports.create = (req, res, next) => {
     let event = new Event(req.body);
-    event.host = req.session.user._id;
+    event.host = req.session.user;
     event.imageFlyer = "/images/" + req.file.filename;
     event.save()
     .then(event=> res.redirect('/events'))
@@ -25,98 +25,187 @@ exports.create = (req, res, next) => {
         next(err);
     });
 };
-
 exports.show = (req, res, next) => {
-    let id = req.params.id;
+    let eventId = req.params.id;
     let userId = req.session.user ? req.session.user._id : null;
 
-    Event.findById(id)
-    .populate('host', 'firstName lastName')
-    .populate('rsvps') // populate RSVPs for the event
-    .then(event=>{
-        if(event) {
-            console.log(event.host);
-            // format category
-            const formatCategory = (type) => {
-                return type
-                    .split('-') 
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ');
-            };
-            // format platform
-            const formatPlatform = (platform) => {
-                return platform
-                    .split('-')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ');
-            };
-            // format times
-            const formatTime = (time) => {
-                const [hours, minutes] = time.split(':');
-                const date = new Date();
-                date.setHours(hours, minutes);
-                return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-            }
-            // format date
-            const formatDate = (dateString) => {
-                const [year, month, day] = dateString.split('-');
-                const date = new Date(year, month - 1, day); 
-            
-                const daySuffix = (day) => {
-                    if (day > 3 && day < 21) return 'th'; 
-                    switch (day % 10) {
-                        case 1: return 'st';
-                        case 2: return 'nd';
-                        case 3: return 'rd';
-                        default: return 'th';
-                    }
-                };
-            
-                const dayWithSuffix = `${day}${daySuffix(parseInt(day, 10))}`;
-            
-                const options = { weekday: 'long', month: 'long', year: 'numeric' };
-                const formattedDateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
-            
-                const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
-                const monthName = formattedDateParts.find(part => part.type === 'month').value;
-                const yearNum = formattedDateParts.find(part => part.type === 'year').value;
-            
-                return `${weekday} ${monthName} ${dayWithSuffix}, ${yearNum}`;
-            };
-            event.formattedCategory = formatCategory(event.type);
-            event.formattedPlatform = formatPlatform(event.platform);
-            event.formattedStartTime = formatTime(event.startTime);
-            event.formattedEndTime = formatTime(event.endTime);
-            event.formattedDate = formatDate(event.date);
+    Event.findById(eventId)
+    .populate('host', 'firstName lastName') // Populating only firstName and lastName of the host
+    .populate('rsvps') // Populate RSVPs for the event
+    .then(event => {
+        // Debugging to ensure host is populated
+        console.log('Event with populated host:', event);
 
-            // count 'yes' rsvps
-            const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
-
-            // check if user has rsvp'd and get their status
-            let userRsvpStatus = null;
-            if (userId) {
-                const userRsvp = event.rsvps.find(rsvp => rsvp.user._id.toString() === userId.toString());
-                if (userRsvp) {
-                    userRsvpStatus = userRsvp.status;
-                }
-            }
-
-            // is current user host?
-            const isHost = userId && event.host._id.toString() === userId.toString();
-
-            res.render('./event/show', {event, yesCount, userRsvpStatus, isHost});
-        } else {
-            let err = new Error('Cannot find an event with id ' + id);
+        if (!event) {
+            const err = new Error('Cannot find an event with id ' + eventId);
             err.status = 404;
-            next(err);
+            return next(err);
         }
+
+        if (event.host) {
+            console.log('Host:', event.host.firstName, event.host.lastName);
+        } else {
+            console.error('Host is still undefined or not populated');
+        }
+
+        // Format and process event data
+        const formatCategory = (type) => type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        const formatPlatform = (platform) => platform.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        const formatTime = (time) => {
+            const [hours, minutes] = time.split(':');
+            const date = new Date();
+            date.setHours(hours, minutes);
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+        };
+        const formatDate = (dateString) => {
+            const [year, month, day] = dateString.split('-');
+            const date = new Date(year, month - 1, day);
+
+            const daySuffix = (day) => {
+                if (day > 3 && day < 21) return 'th';
+                switch (day % 10) {
+                    case 1: return 'st';
+                    case 2: return 'nd';
+                    case 3: return 'rd';
+                    default: return 'th';
+                }
+            };
+
+            const dayWithSuffix = `${day}${daySuffix(parseInt(day, 10))}`;
+            const options = { weekday: 'long', month: 'long', year: 'numeric' };
+            const formattedDateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
+
+            const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
+            const monthName = formattedDateParts.find(part => part.type === 'month').value;
+            const yearNum = formattedDateParts.find(part => part.type === 'year').value;
+
+            return `${weekday} ${monthName} ${dayWithSuffix}, ${yearNum}`;
+        };
+
+        event.formattedCategory = formatCategory(event.type);
+        event.formattedPlatform = formatPlatform(event.platform);
+        event.formattedStartTime = formatTime(event.startTime);
+        event.formattedEndTime = formatTime(event.endTime);
+        event.formattedDate = formatDate(event.date);
+
+        // count 'yes' rsvps
+        const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+
+        // check if user has rsvp'd and get their status
+        let userRsvpStatus = null;
+        if (userId) {
+            const userRsvp = event.rsvps.find(rsvp => rsvp.user._id.toString() === userId.toString());
+            if (userRsvp) {
+                userRsvpStatus = userRsvp.status;
+            }
+        }
+
+        // is current user host?
+        const isHost = userId && event.host._id.toString() === userId.toString();
+
+        res.render('./event/show', { event, yesCount, userRsvpStatus, isHost });
     })
-    .catch(err=>next(err));
+    .catch(err => next(err));
 };
+
+
+// exports.show = (req, res, next) => {
+//     let eventId = req.params.id;
+//     let userId = req.session.user ? req.session.user._id : null;
+
+//     Event.findById(eventId)
+//     .populate('host', 'firstName lastName')
+//     .populate('rsvps') // populate RSVPs for the event
+//     .then(event=>{
+//         console.log('Event with populated host:', event);
+//         if (event.host) {
+//             console.log('Host:', event.host.firstName, event.host.lastName);
+//         } else {
+//             console.error('Host is still undefined or not populated');
+//         }
+//         if(event) {
+//             // format category
+//             const formatCategory = (type) => {
+//                 return type
+//                     .split('-') 
+//                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//                     .join(' ');
+//             };
+//             // format platform
+//             const formatPlatform = (platform) => {
+//                 return platform
+//                     .split('-')
+//                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+//                     .join(' ');
+//             };
+//             // format times
+//             const formatTime = (time) => {
+//                 const [hours, minutes] = time.split(':');
+//                 const date = new Date();
+//                 date.setHours(hours, minutes);
+//                 return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+//             }
+//             // format date
+//             const formatDate = (dateString) => {
+//                 const [year, month, day] = dateString.split('-');
+//                 const date = new Date(year, month - 1, day); 
+            
+//                 const daySuffix = (day) => {
+//                     if (day > 3 && day < 21) return 'th'; 
+//                     switch (day % 10) {
+//                         case 1: return 'st';
+//                         case 2: return 'nd';
+//                         case 3: return 'rd';
+//                         default: return 'th';
+//                     }
+//                 };
+            
+//                 const dayWithSuffix = `${day}${daySuffix(parseInt(day, 10))}`;
+            
+//                 const options = { weekday: 'long', month: 'long', year: 'numeric' };
+//                 const formattedDateParts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
+            
+//                 const weekday = formattedDateParts.find(part => part.type === 'weekday').value;
+//                 const monthName = formattedDateParts.find(part => part.type === 'month').value;
+//                 const yearNum = formattedDateParts.find(part => part.type === 'year').value;
+            
+//                 return `${weekday} ${monthName} ${dayWithSuffix}, ${yearNum}`;
+//             };
+//             event.formattedCategory = formatCategory(event.type);
+//             event.formattedPlatform = formatPlatform(event.platform);
+//             event.formattedStartTime = formatTime(event.startTime);
+//             event.formattedEndTime = formatTime(event.endTime);
+//             event.formattedDate = formatDate(event.date);
+
+//             // count 'yes' rsvps
+//             const yesCount = event.rsvps.filter(rsvp => rsvp.status === 'YES').length;
+
+//             // check if user has rsvp'd and get their status
+//             let userRsvpStatus = null;
+//             if (userId) {
+//                 const userRsvp = event.rsvps.find(rsvp => rsvp.user._id.toString() === userId.toString());
+//                 if (userRsvp) {
+//                     userRsvpStatus = userRsvp.status;
+//                 }
+//             }
+
+//             // is current user host?
+//             const isHost = userId && event.host._id.toString() === userId.toString();
+
+//             res.render('./event/show', {event, yesCount, userRsvpStatus, isHost});
+//         } else {
+//             let err = new Error('Cannot find an event with id ' + eventId);
+//             err.status = 404;
+//             next(err);
+//         }
+//     })
+//     .catch(err=>next(err));
+// };
 
 exports.rsvpEvent = (req, res, next) => {
     const eventId = req.params.eventId;
     const userId = req.session.user._id;
+    
     const {status} = req.body;
 
     // confirm valid status
