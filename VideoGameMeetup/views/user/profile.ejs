@@ -27,22 +27,26 @@
 <!-- Code to show RSVPs -->
 <% if (rsvpEvents && rsvpEvents.length > 0) { %>
     <h3>Your RSVPs:</h3>
-    <div class="rsvp-events">
-        <div class="rsvp-header">
-            <div class="rsvp-column">Event</div>
-            <div class="rsvp-column">RSVP Status</div>
-        </div>
-        <% rsvpEvents.forEach(rsvp => { %>
-            <div class="rsvp-row">
-                <div class="rsvp-column">
-                    <a href='/events/<%= rsvp.event._id %>'><p><%= rsvp.event.name %></p></a>
-                </div>
-                <div class="rsvp-column">
-                    <p><%= rsvp.status || "No RSVP" %></p> <!-- Show the RSVP status -->
-                </div>
-            </div>
-        <% }); %>
-    </div>
+    <table class="rsvp-table">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>RSVP Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% rsvpEvents.forEach(rsvp => { %>
+                <tr>
+                    <td>
+                        <a href='/events/<%= rsvp.event._id %>'><%= rsvp.event.name %></a>
+                    </td>
+                    <td>
+                        <%= rsvp.status || "No RSVP" %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 <% } else { %>
     <p>You currently have no RSVPs.</p>
 <% } %>

@@ -356,27 +356,75 @@ main {
 .rsvp-buttons .btn-no:hover {
   background-color: #c82333; /* Darker red on hover */
 }
-
 .rsvp-events {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   margin-top: 20px;
+}
+
+.profile-events {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.event-text {
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.event-text .meetup-info {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  row-gap: 10px;
+  column-gap: 15px;
+}
+
+.event-text .info-labels p {
+  text-align: right;
+  font-weight: bold;
+}
+
+.event-text .info-answers p {
+  margin: 0;
+  text-align: left;
+}
+
+.event-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.event-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.event-buttons img {
+  width: 20px;
+  height: 20px;
 }
 
 .rsvp-header {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-}
-
-.rsvp-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .rsvp-column {
-  width: 45%; /* Adjust as necessary for your layout */
+  width: 45%;
 }
 
 .rsvp-column a {
@@ -387,3 +435,38 @@ main {
 .rsvp-column p {
   margin: 0;
 }
+
+.rsvp-table {
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  margin-top: 20px;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.rsvp-table th,
+.rsvp-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.rsvp-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.rsvp-table tbody tr:hover {
+  background-color: #f9f9f9; /* Light hover effect */
+}
+
+.rsvp-table a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.rsvp-table a:hover {
+  text-decoration: underline;
+}
+
